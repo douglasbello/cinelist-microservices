@@ -17,7 +17,7 @@ public class User {
     private String firstName;
     @Column(name = "last_name", length = 255)
     private String lastName;
-    @Column(name = "username", length = 255)
+    @Column(name = "username", length = 20)
     private String username;
     @Column(name = "email", length = 255)
     private String email;
