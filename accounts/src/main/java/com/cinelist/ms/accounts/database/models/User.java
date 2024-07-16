@@ -1,6 +1,8 @@
 package com.cinelist.ms.accounts.database.models;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -31,7 +33,8 @@ public class User {
     private String photoUrl;
     @Column(name = "birth_date")
     private LocalDate birthDate;
-    @Column(name = "created_at")
+    @CreationTimestamp
+    @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;

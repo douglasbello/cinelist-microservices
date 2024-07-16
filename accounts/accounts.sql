@@ -10,6 +10,22 @@ CREATE TABLE tb_users(
 	location VARCHAR(255) DEFAULT NULL,
     photo_url VARCHAR(255) DEFAULT NULL,
     birth_date DATE NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT NULL
 )
+
+SELECT * FROM tb_users;
+
+DELETE FROM tb_users;
+
+CREATE OR REPLACE FUNCTION update_modified_column()
+	RETURNS TRIGGER AS $$
+	BEGIN NEW.updated_at = clock_timestamp();
+	RETURN NEW;
+	END;
+$$ language 'plpgsql';
+
+CREATE TRIGGER update_modified_time BEFORE UPDATE ON tb_users FOR EACH ROW EXECUTE PROCEDURE update_modified_column();
+
+INSERT INTO tb_users (identifier, first_name, last_name, username, email, password, biography, location, photo_url, birth_date)
+VALUES (gen_random_uuid(), 'John', 'Doe', 'johndoe', 'johndoe@example.com', 'password123', 'Biography', 'Location', 'http://example.com/photo.jpg', '1990-01-01');
