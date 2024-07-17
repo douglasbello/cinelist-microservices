@@ -21,7 +21,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         CustomErrorResponse error = new CustomErrorResponse();
         error.setError(e.getMessage());
         error.setStatus(HttpStatus.NOT_FOUND.value());
-        error.setCode("400");
+        error.setCode("404");
 
         log.error("Error occurred: {}", error.getError());
 
