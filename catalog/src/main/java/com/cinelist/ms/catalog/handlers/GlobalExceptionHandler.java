@@ -2,6 +2,7 @@ package com.cinelist.ms.catalog.handlers;
 
 import com.cinelist.ms.catalog.dtos.handler.CustomErrorResponse;
 import com.cinelist.ms.catalog.handlers.exceptions.ResourceNotFound;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,6 +13,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @RestControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ResourceNotFound.class)
@@ -20,6 +22,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         error.setError(e.getMessage());
         error.setStatus(HttpStatus.NOT_FOUND.value());
         error.setCode("400");
+
+        log.error("Error occurred: {}", error.getError());
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
