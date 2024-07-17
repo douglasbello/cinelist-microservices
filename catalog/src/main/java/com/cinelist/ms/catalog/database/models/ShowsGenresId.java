@@ -4,26 +4,26 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
 @Embeddable
-public class MoviesGenresId {
-    @Column(name = "movie_identifier", length = 36)
-    private String movieIdentifier;
+public class ShowsGenresId {
+    @Column(name = "show_identifier", length = 36)
+    private String showIdentifier;
     @Column(name = "genre_identifier", length = 36)
     private String genreIdentifier;
 
-    public MoviesGenresId() {
+    public ShowsGenresId() {
     }
 
-    public MoviesGenresId(String movieIdentifier, String genreIdentifier) {
-        this.movieIdentifier = movieIdentifier;
+    public ShowsGenresId(String showIdentifier, String genreIdentifier) {
+        this.showIdentifier = showIdentifier;
         this.genreIdentifier = genreIdentifier;
     }
 
-    public String getMovieIdentifier() {
-        return movieIdentifier;
+    public String getShowIdentifier() {
+        return showIdentifier;
     }
 
-    public void setMovieIdentifier(String movieIdentifier) {
-        this.movieIdentifier = movieIdentifier;
+    public void setShowIdentifier(String showIdentifier) {
+        this.showIdentifier = showIdentifier;
     }
 
     public String getGenreIdentifier() {

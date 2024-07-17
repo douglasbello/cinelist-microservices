@@ -6,32 +6,32 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "tb_movies_languages")
-public class MoviesLanguages {
+@Table(name = "tb_shows_genres")
+public class ShowsGenres {
     @EmbeddedId
     @AttributeOverrides({
-            @AttributeOverride(name = "movieIdentifier", column = @Column(name = "movie_identifier", length = 36)),
-            @AttributeOverride(name = "languageIdentifier", column = @Column(name = "language_identifier", length = 36))
+            @AttributeOverride(name = "showIdentifier", column = @Column(name = "show_identifier", length = 36)),
+            @AttributeOverride(name = "genreIdentifier", column = @Column(name = "genre_identifier", length = 36))
     })
-    private MoviesLanguagesId id;
+    private ShowsGenresId id;
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    public MoviesLanguages() {
+    public ShowsGenres() {
     }
 
-    public MoviesLanguages(MoviesLanguagesId id) {
+    public ShowsGenres(ShowsGenresId id) {
         this.id = id;
     }
 
-    public MoviesLanguagesId getId() {
+    public ShowsGenresId getId() {
         return id;
     }
 
-    public void setId(MoviesLanguagesId id) {
+    public void setId(ShowsGenresId id) {
         this.id = id;
     }
 

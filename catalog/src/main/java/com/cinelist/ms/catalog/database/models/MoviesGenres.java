@@ -1,9 +1,6 @@
 package com.cinelist.ms.catalog.database.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
@@ -12,6 +9,10 @@ import java.time.LocalDateTime;
 @Table(name = "tb_movies_genres")
 public class MoviesGenres {
     @EmbeddedId
+    @AttributeOverrides({
+            @AttributeOverride(name = "movieIdentifier", column = @Column(name = "movie_identifier", length = 36)),
+            @AttributeOverride(name = "genreIdentifier", column = @Column(name = "genre_identifier", length = 36))
+    })
     private MoviesGenresId id;
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)

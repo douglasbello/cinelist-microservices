@@ -5,9 +5,9 @@ import jakarta.persistence.Embeddable;
 
 @Embeddable
 public class MoviesLanguagesId {
-    @Column(name = "movieIdentifier")
+    @Column(name = "movie_identifier")
     private String movieIdentifier;
-    @Column(name = "languageIdentifier")
+    @Column(name = "language_identifier")
     private String languageIdentifier;
 
     public MoviesLanguagesId() {
