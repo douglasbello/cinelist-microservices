@@ -140,13 +140,13 @@ public class Movie {
             return this;
         }
 
-        public MovieBuilder trailerUrl(String trailerUrl) {
+        public MovieBuilder setTrailerUrl(String trailerUrl) {
             this.trailerUrl = trailerUrl;
 
             return this;
         }
 
-        public MovieBuilder thumbnailUrl(String thumbnailUrl) {
+        public MovieBuilder setThumbnailUrl(String thumbnailUrl) {
             this.thumbnailUrl = thumbnailUrl;
 
             return this;
