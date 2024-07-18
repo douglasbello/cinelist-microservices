@@ -2,7 +2,7 @@ package com.cinelist.ms.catalog.services.movies.impl;
 
 import com.cinelist.ms.catalog.database.models.Movie;
 import com.cinelist.ms.catalog.database.repositories.MovieRepository;
-import com.cinelist.ms.catalog.dtos.movies.MovieInputDto;
+import com.cinelist.ms.catalog.dtos.movies.MovieRequest;
 import com.cinelist.ms.catalog.services.movies.MovieService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -36,16 +36,16 @@ public class MovieServiceImpl implements MovieService {
         return null;
     }
 
-    public Movie register(MovieInputDto dto) {
+    public Movie register(MovieRequest request) {
         Movie movie = new Movie.MovieBuilder()
-                .setTitle(dto.title())
-                .setCertificateId(dto.certificateId())
-                .setDuration(dto.duration())
-                .setShortDescription(dto.shortDescription())
-                .setLongDescription(dto.longDescription())
-                .setTrailerUrl(dto.trailerUrl())
-                .setThumbnailUrl(dto.thumbnailUrl())
-                .setReleaseDate(dto.releaseDate())
+                .setTitle(request.title())
+                .setCertificateId(request.certificateId())
+                .setDuration(request.duration())
+                .setShortDescription(request.shortDescription())
+                .setLongDescription(request.longDescription())
+                .setTrailerUrl(request.trailerUrl())
+                .setThumbnailUrl(request.thumbnailUrl())
+                .setReleaseDate(request.releaseDate())
                 .build();
 
         return movieRepository.save(movie);
