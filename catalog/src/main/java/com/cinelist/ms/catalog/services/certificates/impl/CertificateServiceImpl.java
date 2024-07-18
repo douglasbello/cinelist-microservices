@@ -2,9 +2,11 @@ package com.cinelist.ms.catalog.services.certificates.impl;
 
 import com.cinelist.ms.catalog.database.models.Certificate;
 import com.cinelist.ms.catalog.database.repositories.CertificateRepository;
-import com.cinelist.ms.catalog.handlers.exceptions.ResourceNotFound;
+import com.cinelist.ms.catalog.handlers.exceptions.ResourceNotFoundException;
 import com.cinelist.ms.catalog.services.certificates.CertificateService;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class CertificateServiceImpl implements CertificateService {
@@ -15,20 +17,14 @@ public class CertificateServiceImpl implements CertificateService {
     }
 
     @Override
-    public Certificate findByIdentifier(String identifier) throws ResourceNotFound {
-        return certificateRepository.findById(identifier).orElseThrow(() -> new ResourceNotFound(identifier));
+    public Certificate findByIdentifier(String identifier) throws ResourceNotFoundException {
+        return certificateRepository.findById(identifier).orElseThrow(() -> new ResourceNotFoundException(identifier));
     }
 
     @Override
-    public boolean exists(String identifier) throws ResourceNotFound {
-        boolean exists = false;
+    public boolean exists(String identifier) throws ResourceNotFoundException {
+        Optional<Certificate> certificate = certificateRepository.findById(identifier);
 
-        Certificate certificate = findByIdentifier(identifier);
-
-        if (certificate != null) {
-            exists = true;
-        }
-
-        return exists;
+        return certificate.isPresent();
     }
 }

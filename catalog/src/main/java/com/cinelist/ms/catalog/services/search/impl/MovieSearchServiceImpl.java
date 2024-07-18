@@ -8,7 +8,7 @@ import com.cinelist.ms.catalog.database.repositories.MovieRepository;
 import com.cinelist.ms.catalog.database.repositories.MoviesGenresRepository;
 import com.cinelist.ms.catalog.database.repositories.MoviesLanguagesRepository;
 import com.cinelist.ms.catalog.database.repositories.MoviesPlatformsRepository;
-import com.cinelist.ms.catalog.handlers.exceptions.ResourceNotFound;
+import com.cinelist.ms.catalog.handlers.exceptions.ResourceNotFoundException;
 import com.cinelist.ms.catalog.services.search.MovieSearchService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -41,7 +41,7 @@ public class MovieSearchServiceImpl implements MovieSearchService {
 
     @Override
     public Movie findByIdentifier(String identifier) {
-        return movieRepository.findById(identifier).orElseThrow(() -> new ResourceNotFound(identifier));
+        return movieRepository.findById(identifier).orElseThrow(() -> new ResourceNotFoundException(identifier));
     }
 
     // todo: test if the pagination is really working here
