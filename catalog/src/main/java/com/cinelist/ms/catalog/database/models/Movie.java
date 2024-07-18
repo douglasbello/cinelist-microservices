@@ -11,13 +11,21 @@ public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String identifier;
+    @Column(name = "title", length = 80)
     private String title;
+    @Column(name = "short_description", length = 255)
     private String shortDescription;
+    @Column(name = "long_description", length = 255)
     private String longDescription;
+    @Column(name = "release_date")
     private LocalDate releaseDate;
+    @Column(name = "trailer_url", length = 255)
     private String trailerUrl;
+    @Column(name = "thumbnail_url", length = 255)
     private String thumbnailUrl;
-    private String certificateId;
+    @Column(name = "certificate_identifier", length = 36)
+    private String certificateIdentifier;
+    @Column(name = "duration", length = 15)
     private String duration;
 
     public Movie() {
@@ -30,7 +38,7 @@ public class Movie {
         this.releaseDate = builder.releaseDate;
         this.trailerUrl = builder.trailerUrl;
         this.thumbnailUrl = builder.thumbnailUrl;
-        this.certificateId = builder.certificateId;
+        this.certificateIdentifier = builder.certificateId;
         this.duration = builder.duration;
     }
 
@@ -90,12 +98,12 @@ public class Movie {
         this.thumbnailUrl = thumbnailUrl;
     }
 
-    public String getCertificateId() {
-        return certificateId;
+    public String getCertificateIdentifier() {
+        return certificateIdentifier;
     }
 
-    public void setCertificateId(String certificateId) {
-        this.certificateId = certificateId;
+    public void setCertificateIdentifier(String certificateId) {
+        this.certificateIdentifier = certificateId;
     }
 
     public String getDuration() {
@@ -192,7 +200,7 @@ public class Movie {
                 ", releaseDate=" + releaseDate +
                 ", trailerUrl='" + trailerUrl + '\'' +
                 ", thumbnailUrl='" + thumbnailUrl + '\'' +
-                ", certificateId='" + certificateId + '\'' +
+                ", certificateId='" + certificateIdentifier + '\'' +
                 ", duration='" + duration + '\'' +
                 '}';
     }
