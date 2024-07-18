@@ -29,7 +29,7 @@ public class User {
     private String biography;
     @Column(name = "location", length = 255)
     private String location;
-    @Column(name = "photo_url", length = 36)
+    @Column(name = "photo_url", length = 255)
     private String photoUrl;
     @Column(name = "birth_date")
     private LocalDate birthDate;
