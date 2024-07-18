@@ -35,6 +35,14 @@ public class MoviesLanguages {
         this.id = id;
     }
 
+    public String getMovieIdentifier() {
+        return this.id.getMovieIdentifier();
+    }
+
+    public String getLanguageIdentifier() {
+        return this.id.getLanguageIdentifier();
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }

@@ -35,6 +35,14 @@ public class MoviesPlatforms {
         this.id = id;
     }
 
+    public String getMovieIdentifier() {
+        return this.id.getMovieIdentifier();
+    }
+
+    public String getPlatformIdentifier() {
+        return this.id.getPlatformIdentifier();
+    }
+
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }

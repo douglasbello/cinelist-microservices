@@ -35,6 +35,14 @@ public class MoviesGenres {
         this.id = id;
     }
 
+    public String getGenreIdentifier() {
+        return this.id.getGenreIdentifier();
+    }
+
+    public String getMovieIdentifier() {
+        return this.id.getMovieIdentifier();
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }

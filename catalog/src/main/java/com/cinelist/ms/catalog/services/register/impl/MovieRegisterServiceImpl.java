@@ -1,41 +1,20 @@
-package com.cinelist.ms.catalog.services.movies.impl;
+package com.cinelist.ms.catalog.services.register.impl;
 
 import com.cinelist.ms.catalog.database.models.Movie;
 import com.cinelist.ms.catalog.database.repositories.MovieRepository;
 import com.cinelist.ms.catalog.dtos.movies.MovieRequest;
-import com.cinelist.ms.catalog.services.movies.MovieService;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.cinelist.ms.catalog.services.register.MovieRegisterService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MovieServiceImpl implements MovieService {
+public class MovieRegisterServiceImpl implements MovieRegisterService {
     private final MovieRepository movieRepository;
 
-    public MovieServiceImpl(MovieRepository movieRepository) {
+    public MovieRegisterServiceImpl(MovieRepository movieRepository) {
         this.movieRepository = movieRepository;
     }
 
-    public Page<Movie> findAll(Pageable pageable) {
-        return null;
-    }
-
-    public Movie findByIdentifier(String identifier) {
-        return null;
-    }
-
-    public Page<Movie> findByGenreIdentifier(String genreIdentifier, Pageable pageable) {
-        return null;
-    }
-
-    public Page<Movie> findByPlatformIdentifier(String platformIdentifier, Pageable pageable) {
-        return null;
-    }
-
-    public Page<Movie> findByLanguageIdentifier(String languageIdentifier, Pageable pageable) {
-        return null;
-    }
-
+    @Override
     public Movie register(MovieRequest request) {
         Movie movie = new Movie.MovieBuilder()
                 .setTitle(request.title())
