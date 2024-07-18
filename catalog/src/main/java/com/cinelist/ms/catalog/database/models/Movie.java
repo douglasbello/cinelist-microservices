@@ -15,7 +15,7 @@ public class Movie {
     private String title;
     @Column(name = "short_description", length = 255)
     private String shortDescription;
-    @Column(name = "long_description", length = 255)
+    @Column(name = "long_description", columnDefinition = "text")
     private String longDescription;
     @Column(name = "release_date")
     private LocalDate releaseDate;

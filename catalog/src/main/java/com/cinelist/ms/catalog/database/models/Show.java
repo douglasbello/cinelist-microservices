@@ -26,6 +26,8 @@ public class Show {
     private String trailerUrl;
     @Column(name = "thumbnail_url", length = 255)
     private String thumbnailUrl;
+    @Column(name = "certificate_identifier", length = 36)
+    private String certificateIdentifier;
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
@@ -42,6 +44,7 @@ public class Show {
         this.releaseDate = builder.releaseDate;
         this.trailerUrl = builder.trailerUrl;
         this.thumbnailUrl = builder.thumbnailUrl;
+        this.certificateIdentifier = builder.certificateIdentifier;
     }
 
     public String getIdentifier() {
@@ -100,6 +103,14 @@ public class Show {
         this.thumbnailUrl = thumbnailUrl;
     }
 
+    public String getCertificateIdentifier() {
+        return certificateIdentifier;
+    }
+
+    public void setCertificateIdentifier(String certificateIdentifier) {
+        this.certificateIdentifier = certificateIdentifier;
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -123,6 +134,7 @@ public class Show {
         private LocalDate releaseDate;
         private String thumbnailUrl;
         private String trailerUrl;
+        private String certificateIdentifier;
 
         public ShowBuilder setTitle(String title) {
             this.title = title;
@@ -156,6 +168,12 @@ public class Show {
 
         public ShowBuilder setTrailerUrl(String trailerUrl) {
             this.trailerUrl = trailerUrl;
+
+            return this;
+        }
+
+        public ShowBuilder setCertificateIdentifier(String certificateIdentifier) {
+            this.certificateIdentifier = certificateIdentifier;
 
             return this;
         }
