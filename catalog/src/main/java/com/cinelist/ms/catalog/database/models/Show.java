@@ -14,7 +14,7 @@ public class Show {
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "identifier", length = 36)
     private String identifier;
-    @Column(name = "title", length = 255)
+    @Column(name = "title", length = 80)
     private String title;
     @Column(name = "short_description", length = 255)
     private String shortDescription;
