@@ -1,38 +1,33 @@
 CREATE TABLE tb_certificates(
-	id SERIAL NOT NULL PRIMARY KEY,
-	identifier UUID NOT NULL,
+	identifier UUID DEFAULT gen_random_uuid() PRIMARY KEY,
 	age VARCHAR(20) NOT NULL,
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP DEFAULT NULL
 );
 
 CREATE TABLE tb_languages(
-	id SERIAL NOT NULL PRIMARY KEY,
-	identifier UUID NOT NULL,
+	identifier UUID DEFAULT gen_random_uuid() PRIMARY KEY,
 	name VARCHAR(20) NOT NULL,
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP DEFAULT NULL
 );
 
 CREATE TABLE tb_genres(
-	id SERIAL NOT NULL PRIMARY KEY,
-	identifier UUID NOT NULL,
+    identifier UUID DEFAULT gen_random_uuid() PRIMARY KEY,
 	name VARCHAR(40) NOT NULL,
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP DEFAULT NULL
 );
 
 CREATE TABLE tb_platforms(
-	id SERIAL NOT NULL PRIMARY KEY,
-	identifier UUID NOT NULL,
+	identifier UUID DEFAULT gen_random_uuid() PRIMARY KEY,
 	name VARCHAR(50) NOT NULL,
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP DEFAULT NULL
 );
 
 CREATE TABLE tb_movies(
-	id SERIAL NOT NULL PRIMARY KEY,
-	identifier UUID NOT NULL,
+	identifier UUID DEFAULT gen_random_uuid() PRIMARY KEY,
 	title VARCHAR(80) NOT NULL,
 	short_description VARCHAR(255),
 	long_description TEXT,
@@ -42,36 +37,42 @@ CREATE TABLE tb_movies(
 	certificate_identifier UUID,
 	duration VARCHAR(15),
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-	updated_at TIMESTAMP DEFAULT NULL
+	updated_at TIMESTAMP DEFAULT NULL,
+	FOREIGN KEY (certificate_identifier) REFERENCES tb_certificates (identifier)
 );
 
 CREATE TABLE tb_movies_genres(
-	id SERIAL NOT NULL PRIMARY KEY,
 	movie_identifier UUID NOT NULL,
 	genre_identifier UUID NOT NULL,
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-	updated_at TIMESTAMP DEFAULT NULL
+	updated_at TIMESTAMP DEFAULT NULL,
+	PRIMARY KEY (movie_identifier, genre_identifier),
+	FOREIGN KEY (movie_identifier) REFERENCES tb_movies (identifier),
+	FOREIGN KEY (genre_identifier) REFERENCES tb_genres (identifier)
 );
 
 CREATE TABLE tb_movies_languages(
-	id SERIAL NOT NULL PRIMARY KEY,
 	movie_identifier UUID NOT NULL,
-	genre_identifier UUID NOT NULL,
+	language_identifier UUID NOT NULL,
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-	updated_at TIMESTAMP DEFAULT NULL
+	updated_at TIMESTAMP DEFAULT NULL,
+	PRIMARY KEY (movie_identifier, language_identifier),
+	FOREIGN KEY (movie_identifier) REFERENCES tb_movies (identifier),
+	FOREIGN KEY (language_identifier) REFERENCES tb_languages (identifier)
 );
 
 CREATE TABLE tb_movies_platforms(
-	id SERIAL NOT NULL PRIMARY KEY,
 	movie_identifier UUID NOT NULL,
 	platform_identifier UUID NOT NULL,
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-	updated_at TIMESTAMP DEFAULT NULL
+	updated_at TIMESTAMP DEFAULT NULL,
+	PRIMARY KEY (movie_identifier, platform_identifier),
+	FOREIGN KEY (movie_identifier) REFERENCES tb_movies (identifier),
+	FOREIGN KEY (platform_identifier) REFERENCES tb_platforms (identifier)
 );
 
 CREATE TABLE tb_shows(
-	id SERIAL NOT NULL PRIMARY KEY,
-	identifier UUID NOT NULL,
+	identifier UUID DEFAULT gen_random_uuid() PRIMARY KEY,
 	title VARCHAR(80) NOT NULL,
 	short_description VARCHAR(255),
 	long_description TEXT,
@@ -80,41 +81,48 @@ CREATE TABLE tb_shows(
 	thumbnail_url VARCHAR(255),
 	certificate_identifier UUID,
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-	updated_at TIMESTAMP DEFAULT NULL
+	updated_at TIMESTAMP DEFAULT NULL,
+	FOREIGN KEY (certificate_identifier) REFERENCES tb_certificates (identifier)
 );
 
 CREATE TABLE tb_shows_genres(
-	id SERIAL NOT NULL PRIMARY KEY,
 	show_identifier UUID NOT NULL,
 	genre_identifier UUID NOT NULL,
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-	updated_at TIMESTAMP DEFAULT NULL
+	updated_at TIMESTAMP DEFAULT NULL,
+	PRIMARY KEY (show_identifier, genre_identifier),
+	FOREIGN KEY (show_identifier) REFERENCES tb_shows (identifier),
+	FOREIGN KEY (genre_identifier) REFERENCES tb_genres (identifier)
 );
 
 CREATE TABLE tb_shows_languages(
-	id SERIAL NOT NULL PRIMARY KEY,
 	show_identifier UUID NOT NULL,
 	language_identifier UUID NOT NULL,
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-	updated_at TIMESTAMP DEFAULT NULL
+	updated_at TIMESTAMP DEFAULT NULL,
+	PRIMARY KEY (show_identifier, language_identifier),
+	FOREIGN KEY (show_identifier) REFERENCES tb_shows (identifier),
+	FOREIGN KEY (language_identifier) REFERENCES tb_languages (identifier)
 );
 
 CREATE TABLE tb_shows_platforms(
-	id SERIAL NOT NULL PRIMARY KEY,
 	show_identifier UUID NOT NULL,
 	platform_identifier UUID NOT NULL,
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-	updated_at TIMESTAMP DEFAULT NULL
+	updated_at TIMESTAMP DEFAULT NULL,
+	PRIMARY KEY (show_identifier, platform_identifier),
+	FOREIGN KEY (show_identifier) REFERENCES tb_shows (identifier),
+	FOREIGN KEY (platform_identifier) REFERENCES tb_platforms (identifier)
 );
 
 CREATE TABLE tb_seasons(
-	id SERIAL NOT NULL PRIMARY KEY,
-	identifier UUID NOT NULL,
+	identifier UUID DEFAULT gen_random_uuid() PRIMARY KEY,
 	season INT NOT NULL,
 	episodes INT NOT NULL,
 	show_identifier UUID NOT NULL,
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-	updated_at TIMESTAMP DEFAULT NULL
+	updated_at TIMESTAMP DEFAULT NULL,
+	FOREIGN KEY (show_identifier) REFERENCES tb_shows (identifier)
 );
 
 CREATE OR REPLACE FUNCTION update_modified_column()

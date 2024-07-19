@@ -17,12 +17,15 @@ public class CertificateServiceImpl implements CertificateService {
     }
 
     @Override
-    public Certificate findByIdentifier(String identifier) throws ResourceNotFoundException {
+    public Certificate findByIdentifier(String identifier) {
         return certificateRepository.findById(identifier).orElseThrow(() -> new ResourceNotFoundException(identifier));
     }
 
     @Override
-    public boolean exists(String identifier) throws ResourceNotFoundException {
+    public boolean exists(String identifier) {
+        if (identifier == null)
+            return false;
+
         Optional<Certificate> certificate = certificateRepository.findById(identifier);
 
         return certificate.isPresent();

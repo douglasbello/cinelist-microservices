@@ -16,6 +16,6 @@ public class CertificateRegisterServiceImpl implements CertificateRegisterServic
 
     @Override
     public Certificate register(CertificateRequest request) {
-        return new Certificate(request.age());
+        return certificateRepository.save(new Certificate(request.age()));
     }
 }
