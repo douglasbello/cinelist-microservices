@@ -19,7 +19,7 @@ public class CertificateSearchServiceImpl implements CertificateSearchService {
 
     @Override
     public Certificate findByIdentifier(UUID identifier) {
-        return certificateRepository.findById(identifier).orElseThrow(() -> new ResourceNotFoundException(identifier.toString()));
+        return certificateRepository.findById(identifier).orElseThrow(() -> new ResourceNotFoundException("Certificate", identifier.toString()));
     }
 
     @Override

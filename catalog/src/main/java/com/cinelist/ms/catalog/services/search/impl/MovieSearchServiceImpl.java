@@ -42,7 +42,7 @@ public class MovieSearchServiceImpl implements MovieSearchService {
 
     @Override
     public Movie findByIdentifier(UUID identifier) {
-        return movieRepository.findById(identifier).orElseThrow(() -> new ResourceNotFoundException(identifier.toString()));
+        return movieRepository.findById(identifier).orElseThrow(() -> new ResourceNotFoundException("Movie", identifier.toString()));
     }
 
     // todo: test if the pagination is really working here

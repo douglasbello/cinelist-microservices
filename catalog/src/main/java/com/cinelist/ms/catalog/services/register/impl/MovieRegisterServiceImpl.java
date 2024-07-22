@@ -22,8 +22,8 @@ public class MovieRegisterServiceImpl implements MovieRegisterService {
     public Movie register(MovieRequest request) {
         boolean certificateExists = certificateSearchService.exists(request.certificateIdentifier());
 
-        if (!certificateExists)
-            throw new ResourceNotFoundException(request.certificateIdentifier().toString());
+        if (request.certificateIdentifier() != null && !certificateExists)
+            throw new ResourceNotFoundException("Certificate", request.certificateIdentifier().toString());
 
         Movie movie = new Movie.MovieBuilder()
                 .setTitle(request.title())
