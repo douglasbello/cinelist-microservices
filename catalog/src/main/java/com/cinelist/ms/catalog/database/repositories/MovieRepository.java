@@ -5,6 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface MovieRepository extends JpaRepository<Movie, String> {
-    Page<Movie> findAllByCertificateIdentifier(String certificateIdentifier, Pageable pageable);
+import java.util.UUID;
+
+public interface MovieRepository extends JpaRepository<Movie, UUID> {
+    Page<Movie> findAllByCertificateIdentifier(UUID certificateIdentifier, Pageable pageable);
 }

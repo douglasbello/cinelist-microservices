@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class MovieSearchServiceImpl implements MovieSearchService {
@@ -40,13 +41,13 @@ public class MovieSearchServiceImpl implements MovieSearchService {
     }
 
     @Override
-    public Movie findByIdentifier(String identifier) {
-        return movieRepository.findById(identifier).orElseThrow(() -> new ResourceNotFoundException(identifier));
+    public Movie findByIdentifier(UUID identifier) {
+        return movieRepository.findById(identifier).orElseThrow(() -> new ResourceNotFoundException(identifier.toString()));
     }
 
     // todo: test if the pagination is really working here
     @Override
-    public Page<Movie> findAllByGenreIdentifier(String genreIdentifier, Pageable pageable) {
+    public Page<Movie> findAllByGenreIdentifier(UUID genreIdentifier, Pageable pageable) {
         Page<MoviesGenres> data = moviesGenresRepository.findAllByGenreIdentifier(genreIdentifier, pageable);
 
         List<Movie> movies = data.stream().map(moviesGenres -> findByIdentifier(moviesGenres.getMovieIdentifier())).toList();
@@ -55,7 +56,7 @@ public class MovieSearchServiceImpl implements MovieSearchService {
     }
 
     @Override
-    public Page<Movie> findAllByPlatformIdentifier(String platformIdentifier, Pageable pageable) {
+    public Page<Movie> findAllByPlatformIdentifier(UUID platformIdentifier, Pageable pageable) {
         Page<MoviesPlatforms> data = moviesPlatformsRepository.findAllByPlatformIdentifier(platformIdentifier, pageable);
 
         List<Movie> movies = data.stream().map(moviesPlatforms -> findByIdentifier(moviesPlatforms.getMovieIdentifier())).toList();
@@ -64,7 +65,7 @@ public class MovieSearchServiceImpl implements MovieSearchService {
     }
 
     @Override
-    public Page<Movie> findAllByLanguageIdentifier(String languageIdentifier, Pageable pageable) {
+    public Page<Movie> findAllByLanguageIdentifier(UUID languageIdentifier, Pageable pageable) {
         Page<MoviesLanguages> data = moviesLanguagesRepository.findAllByLanguageIdentifier(languageIdentifier, pageable);
 
         List<Movie> movies = data.stream().map(moviesLanguages -> findByIdentifier(moviesLanguages.getMovieIdentifier())).toList();
@@ -73,7 +74,7 @@ public class MovieSearchServiceImpl implements MovieSearchService {
     }
 
     @Override
-    public Page<Movie> findAllByCertificateIdentifier(String certificateIdentifier, Pageable pageable) {
+    public Page<Movie> findAllByCertificateIdentifier(UUID certificateIdentifier, Pageable pageable) {
         return movieRepository.findAllByCertificateIdentifier(certificateIdentifier, pageable);
     }
 }

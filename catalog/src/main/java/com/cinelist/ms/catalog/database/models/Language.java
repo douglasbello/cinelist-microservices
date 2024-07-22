@@ -5,6 +5,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Table(name = "tb_languages")
@@ -12,7 +13,7 @@ public class Language {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "identifier", length = 36, columnDefinition = "UUID")
-    private String identifier;
+    private UUID identifier;
     @Column(name = "name", length = 20)
     private String name;
     @CreationTimestamp
@@ -28,11 +29,11 @@ public class Language {
         this.name = name;
     }
 
-    public String getIdentifier() {
+    public UUID getIdentifier() {
         return identifier;
     }
 
-    public void setIdentifier(String identifier) {
+    public void setIdentifier(UUID identifier) {
         this.identifier = identifier;
     }
 

@@ -14,7 +14,7 @@ public class Show {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "identifier", length = 36, columnDefinition = "UUID")
-    private String identifier;
+    private UUID identifier;
     @Column(name = "title", length = 80)
     private String title;
     @Column(name = "short_description", length = 255)
@@ -48,11 +48,11 @@ public class Show {
         this.certificateIdentifier = builder.certificateIdentifier;
     }
 
-    public String getIdentifier() {
+    public UUID getIdentifier() {
         return identifier;
     }
 
-    public void setIdentifier(String identifier) {
+    public void setIdentifier(UUID identifier) {
         this.identifier = identifier;
     }
 

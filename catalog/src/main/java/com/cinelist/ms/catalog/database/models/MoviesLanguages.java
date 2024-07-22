@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Table(name = "tb_movies_languages")
@@ -35,11 +36,11 @@ public class MoviesLanguages {
         this.id = id;
     }
 
-    public String getMovieIdentifier() {
+    public UUID getMovieIdentifier() {
         return this.id.getMovieIdentifier();
     }
 
-    public String getLanguageIdentifier() {
+    public UUID getLanguageIdentifier() {
         return this.id.getLanguageIdentifier();
     }
 

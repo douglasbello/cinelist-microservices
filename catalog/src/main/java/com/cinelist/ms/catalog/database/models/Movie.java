@@ -12,7 +12,7 @@ public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "identifier", columnDefinition = "UUID")
-    private String identifier;
+    private UUID identifier;
     @Column(name = "title", length = 80)
     private String title;
     @Column(name = "short_description", length = 255)
@@ -44,11 +44,11 @@ public class Movie {
         this.duration = builder.duration;
     }
 
-    public String getIdentifier() {
+    public UUID getIdentifier() {
         return identifier;
     }
 
-    public void setIdentifier(String identifier) {
+    public void setIdentifier(UUID identifier) {
         this.identifier = identifier;
     }
 

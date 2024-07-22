@@ -5,6 +5,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Table(name = "tb_platforms")
@@ -12,7 +13,7 @@ public class Platform {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "identifier", length = 36, columnDefinition = "UUID")
-    private String identifier;
+    private UUID identifier;
     @Column(name = "name", length = 50)
     private String name;
     @CreationTimestamp
@@ -24,16 +25,16 @@ public class Platform {
     public Platform() {
     }
 
-    public Platform(String identifier, String name) {
+    public Platform(UUID identifier, String name) {
         this.identifier = identifier;
         this.name = name;
     }
 
-    public String getIdentifier() {
+    public UUID getIdentifier() {
         return identifier;
     }
 
-    public void setIdentifier(String identifier) {
+    public void setIdentifier(UUID identifier) {
         this.identifier = identifier;
     }
 

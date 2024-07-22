@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Table(name = "tb_movies_genres")
@@ -35,11 +36,11 @@ public class MoviesGenres {
         this.id = id;
     }
 
-    public String getGenreIdentifier() {
+    public UUID getGenreIdentifier() {
         return this.id.getGenreIdentifier();
     }
 
-    public String getMovieIdentifier() {
+    public UUID getMovieIdentifier() {
         return this.id.getMovieIdentifier();
     }
 

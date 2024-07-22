@@ -3,34 +3,36 @@ package com.cinelist.ms.catalog.database.models;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
+import java.util.UUID;
+
 @Embeddable
 public class MoviesGenresId {
     @Column(name = "movie_identifier", length = 36)
-    private String movieIdentifier;
+    private UUID movieIdentifier;
     @Column(name = "genre_identifier", length = 36)
-    private String genreIdentifier;
+    private UUID genreIdentifier;
 
     public MoviesGenresId() {
     }
 
-    public MoviesGenresId(String movieIdentifier, String genreIdentifier) {
+    public MoviesGenresId(UUID movieIdentifier, UUID genreIdentifier) {
         this.movieIdentifier = movieIdentifier;
         this.genreIdentifier = genreIdentifier;
     }
 
-    public String getMovieIdentifier() {
+    public UUID getMovieIdentifier() {
         return movieIdentifier;
     }
 
-    public void setMovieIdentifier(String movieIdentifier) {
+    public void setMovieIdentifier(UUID movieIdentifier) {
         this.movieIdentifier = movieIdentifier;
     }
 
-    public String getGenreIdentifier() {
+    public UUID getGenreIdentifier() {
         return genreIdentifier;
     }
 
-    public void setGenreIdentifier(String genreIdentifier) {
+    public void setGenreIdentifier(UUID genreIdentifier) {
         this.genreIdentifier = genreIdentifier;
     }
 }

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Table(name = "tb_shows_genres")
@@ -49,5 +50,13 @@ public class ShowsGenres {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public UUID getShowIdentifier() {
+        return this.id.getShowIdentifier();
+    }
+
+    public UUID getGenreIdentifier() {
+        return this.id.getGenreIdentifier();
     }
 }

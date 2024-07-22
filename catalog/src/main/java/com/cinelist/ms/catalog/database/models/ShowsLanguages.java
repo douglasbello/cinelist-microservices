@@ -2,6 +2,8 @@ package com.cinelist.ms.catalog.database.models;
 
 import jakarta.persistence.*;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "tb_shows_languages")
 public class ShowsLanguages {
@@ -25,5 +27,13 @@ public class ShowsLanguages {
 
     public void setId(ShowsLanguagesId id) {
         this.id = id;
+    }
+
+    public UUID getShowIdentifier() {
+        return this.id.getShowIdentifier();
+    }
+
+    public UUID getLanguageIdentifier() {
+        return this.id.getLanguageIdentifier();
     }
 }

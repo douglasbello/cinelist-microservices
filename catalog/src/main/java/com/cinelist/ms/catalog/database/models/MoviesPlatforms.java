@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Table(name = "tb_movies_platforms")
@@ -35,11 +36,11 @@ public class MoviesPlatforms {
         this.id = id;
     }
 
-    public String getMovieIdentifier() {
+    public UUID getMovieIdentifier() {
         return this.id.getMovieIdentifier();
     }
 
-    public String getPlatformIdentifier() {
+    public UUID getPlatformIdentifier() {
         return this.id.getPlatformIdentifier();
     }
 

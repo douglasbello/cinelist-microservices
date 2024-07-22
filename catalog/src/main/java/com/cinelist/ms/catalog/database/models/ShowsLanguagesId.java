@@ -3,34 +3,36 @@ package com.cinelist.ms.catalog.database.models;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
+import java.util.UUID;
+
 @Embeddable
 public class ShowsLanguagesId {
     @Column(name = "show_identifier", length = 36)
-    private String showIdentifier;
+    private UUID showIdentifier;
     @Column(name = "language_identifier", length = 36)
-    private String languageIdentifier;
+    private UUID languageIdentifier;
 
     public ShowsLanguagesId() {
     }
 
-    public ShowsLanguagesId(String showIdentifier, String languageIdentifier) {
+    public ShowsLanguagesId(UUID showIdentifier, UUID languageIdentifier) {
         this.showIdentifier = showIdentifier;
         this.languageIdentifier = languageIdentifier;
     }
 
-    public String getShowIdentifier() {
+    public UUID getShowIdentifier() {
         return showIdentifier;
     }
 
-    public void setShowIdentifier(String showIdentifier) {
+    public void setShowIdentifier(UUID showIdentifier) {
         this.showIdentifier = showIdentifier;
     }
 
-    public String getLanguageIdentifier() {
+    public UUID getLanguageIdentifier() {
         return languageIdentifier;
     }
 
-    public void setLanguageIdentifier(String languageIdentifier) {
+    public void setLanguageIdentifier(UUID languageIdentifier) {
         this.languageIdentifier = languageIdentifier;
     }
 }

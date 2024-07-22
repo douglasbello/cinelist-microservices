@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Table(name = "tb_seasons")
@@ -11,13 +12,13 @@ public class Season {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "identifier", length = 36, columnDefinition = "UUID")
-    private String identifier;
+    private UUID identifier;
     @Column(name = "season")
     private Integer season;
     @Column(name = "episodes")
     private Integer episodes;
     @Column(name = "showIdentifier", length = 36, columnDefinition = "UUID")
-    private String showIdentifier;
+    private UUID showIdentifier;
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
     @Column(name = "updated_at")
@@ -26,17 +27,17 @@ public class Season {
     public Season() {
     }
 
-    public Season(Integer season, Integer episodes, String showIdentifier) {
+    public Season(Integer season, Integer episodes, UUID showIdentifier) {
         this.season = season;
         this.episodes = episodes;
         this.showIdentifier = showIdentifier;
     }
 
-    public String getIdentifier() {
+    public UUID getIdentifier() {
         return identifier;
     }
 
-    public void setIdentifier(String identifier) {
+    public void setIdentifier(UUID identifier) {
         this.identifier = identifier;
     }
 
@@ -56,11 +57,11 @@ public class Season {
         this.episodes = episodes;
     }
 
-    public String getShowIdentifier() {
+    public UUID getShowIdentifier() {
         return showIdentifier;
     }
 
-    public void setShowIdentifier(String showIdentifier) {
+    public void setShowIdentifier(UUID showIdentifier) {
         this.showIdentifier = showIdentifier;
     }
 
