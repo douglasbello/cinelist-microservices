@@ -11,7 +11,7 @@ import java.util.Objects;
 public class Language {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "identifier", length = 36)
+    @Column(name = "identifier", length = 36, columnDefinition = "UUID")
     private String identifier;
     @Column(name = "name", length = 20)
     private String name;

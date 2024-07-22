@@ -10,13 +10,13 @@ import java.util.Objects;
 public class Season {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "identifier", length = 36)
+    @Column(name = "identifier", length = 36, columnDefinition = "UUID")
     private String identifier;
     @Column(name = "season")
     private Integer season;
     @Column(name = "episodes")
     private Integer episodes;
-    @Column(name = "showIdentifier", length = 36)
+    @Column(name = "showIdentifier", length = 36, columnDefinition = "UUID")
     private String showIdentifier;
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;

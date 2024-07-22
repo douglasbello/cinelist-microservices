@@ -12,7 +12,7 @@ import java.util.Objects;
 public class Show {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "identifier", length = 36)
+    @Column(name = "identifier", length = 36, columnDefinition = "UUID")
     private String identifier;
     @Column(name = "title", length = 80)
     private String title;
@@ -26,7 +26,7 @@ public class Show {
     private String trailerUrl;
     @Column(name = "thumbnail_url", length = 255)
     private String thumbnailUrl;
-    @Column(name = "certificate_identifier", length = 36)
+    @Column(name = "certificate_identifier", length = 36, columnDefinition = "UUID")
     private String certificateIdentifier;
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)

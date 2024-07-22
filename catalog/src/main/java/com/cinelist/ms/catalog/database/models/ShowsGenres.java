@@ -10,8 +10,8 @@ import java.time.LocalDateTime;
 public class ShowsGenres {
     @EmbeddedId
     @AttributeOverrides({
-            @AttributeOverride(name = "showIdentifier", column = @Column(name = "show_identifier", length = 36)),
-            @AttributeOverride(name = "genreIdentifier", column = @Column(name = "genre_identifier", length = 36))
+            @AttributeOverride(name = "showIdentifier", column = @Column(name = "show_identifier", length = 36, columnDefinition = "UUID")),
+            @AttributeOverride(name = "genreIdentifier", column = @Column(name = "genre_identifier", length = 36, columnDefinition = "UUID"))
     })
     private ShowsGenresId id;
     @CreationTimestamp

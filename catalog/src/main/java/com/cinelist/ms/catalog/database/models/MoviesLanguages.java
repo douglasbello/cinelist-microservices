@@ -10,8 +10,8 @@ import java.time.LocalDateTime;
 public class MoviesLanguages {
     @EmbeddedId
     @AttributeOverrides({
-            @AttributeOverride(name = "movieIdentifier", column = @Column(name = "movie_identifier", length = 36)),
-            @AttributeOverride(name = "languageIdentifier", column = @Column(name = "language_identifier", length = 36))
+            @AttributeOverride(name = "movieIdentifier", column = @Column(name = "movie_identifier", length = 36, columnDefinition = "UUID")),
+            @AttributeOverride(name = "languageIdentifier", column = @Column(name = "language_identifier", length = 36, columnDefinition = "UUID"))
     })
     private MoviesLanguagesId id;
     @CreationTimestamp

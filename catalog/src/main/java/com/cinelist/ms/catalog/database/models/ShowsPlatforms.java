@@ -7,8 +7,8 @@ import jakarta.persistence.*;
 public class ShowsPlatforms {
     @EmbeddedId
     @AttributeOverrides({
-            @AttributeOverride(name = "showIdentifier", column = @Column(name = "show_identifier", length = 36)),
-            @AttributeOverride(name = "platformIdentifier", column = @Column(name = "platformIdentifier", length = 36))
+            @AttributeOverride(name = "showIdentifier", column = @Column(name = "show_identifier", length = 36, columnDefinition = "UUID")),
+            @AttributeOverride(name = "platformIdentifier", column = @Column(name = "platform_identifier", length = 36, columnDefinition = "UUID"))
     })
     private ShowsPlatformsId id;
 

@@ -7,8 +7,8 @@ import jakarta.persistence.*;
 public class ShowsLanguages {
     @EmbeddedId
     @AttributeOverrides({
-            @AttributeOverride(name = "showIdentifier", column = @Column(name = "show_identifier", length = 36)),
-            @AttributeOverride(name = "languageIdentifier", column = @Column(name = "language_identifier", length = 36))
+            @AttributeOverride(name = "showIdentifier", column = @Column(name = "show_identifier", length = 36, columnDefinition = "UUID")),
+            @AttributeOverride(name = "languageIdentifier", column = @Column(name = "language_identifier", length = 36, columnDefinition = "UUID"))
     })
     private ShowsLanguagesId id;
 
