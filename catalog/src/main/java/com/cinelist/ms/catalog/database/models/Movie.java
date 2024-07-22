@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Table(name = "tb_movies")
@@ -25,7 +26,7 @@ public class Movie {
     @Column(name = "thumbnail_url", length = 255)
     private String thumbnailUrl;
     @Column(name = "certificate_identifier", length = 36, columnDefinition = "UUID")
-    private String certificateIdentifier;
+    private UUID certificateIdentifier;
     @Column(name = "duration", length = 15)
     private String duration;
 
@@ -39,7 +40,7 @@ public class Movie {
         this.releaseDate = builder.releaseDate;
         this.trailerUrl = builder.trailerUrl;
         this.thumbnailUrl = builder.thumbnailUrl;
-        this.certificateIdentifier = builder.certificateId;
+        this.certificateIdentifier = builder.certificateIdentifier;
         this.duration = builder.duration;
     }
 
@@ -99,11 +100,11 @@ public class Movie {
         this.thumbnailUrl = thumbnailUrl;
     }
 
-    public String getCertificateIdentifier() {
+    public UUID getCertificateIdentifier() {
         return certificateIdentifier;
     }
 
-    public void setCertificateIdentifier(String certificateId) {
+    public void setCertificateIdentifier(UUID certificateId) {
         this.certificateIdentifier = certificateId;
     }
 
@@ -122,7 +123,7 @@ public class Movie {
         private LocalDate releaseDate;
         private String trailerUrl;
         private String thumbnailUrl;
-        private String certificateId;
+        private UUID certificateIdentifier;
         private String duration;
 
         public MovieBuilder setTitle(String title) {
@@ -161,8 +162,8 @@ public class Movie {
             return this;
         }
 
-        public MovieBuilder setCertificateId(String certificateId) {
-            this.certificateId = certificateId;
+        public MovieBuilder setCertificateId(UUID certificateIdentifier) {
+            this.certificateIdentifier = certificateIdentifier;
 
             return this;
         }

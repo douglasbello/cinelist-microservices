@@ -6,6 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Table(name = "tb_shows")
@@ -27,7 +28,7 @@ public class Show {
     @Column(name = "thumbnail_url", length = 255)
     private String thumbnailUrl;
     @Column(name = "certificate_identifier", length = 36, columnDefinition = "UUID")
-    private String certificateIdentifier;
+    private UUID certificateIdentifier;
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
@@ -103,11 +104,11 @@ public class Show {
         this.thumbnailUrl = thumbnailUrl;
     }
 
-    public String getCertificateIdentifier() {
+    public UUID getCertificateIdentifier() {
         return certificateIdentifier;
     }
 
-    public void setCertificateIdentifier(String certificateIdentifier) {
+    public void setCertificateIdentifier(UUID certificateIdentifier) {
         this.certificateIdentifier = certificateIdentifier;
     }
 
@@ -134,7 +135,7 @@ public class Show {
         private LocalDate releaseDate;
         private String thumbnailUrl;
         private String trailerUrl;
-        private String certificateIdentifier;
+        private UUID certificateIdentifier;
 
         public ShowBuilder setTitle(String title) {
             this.title = title;
@@ -172,7 +173,7 @@ public class Show {
             return this;
         }
 
-        public ShowBuilder setCertificateIdentifier(String certificateIdentifier) {
+        public ShowBuilder setCertificateIdentifier(UUID certificateIdentifier) {
             this.certificateIdentifier = certificateIdentifier;
 
             return this;

@@ -4,23 +4,30 @@ import com.cinelist.ms.catalog.controllers.register.CertificateRegisterControlle
 import com.cinelist.ms.catalog.database.models.Certificate;
 import com.cinelist.ms.catalog.dtos.genres.CertificateRequest;
 import com.cinelist.ms.catalog.services.register.CertificateRegisterService;
+import com.cinelist.ms.catalog.services.search.CertificateSearchService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/certificates")
 public class CertificateRegisterControllerImpl implements CertificateRegisterController {
     private CertificateRegisterService certificateRegisterService;
+    private CertificateSearchService certificateSearchService;
 
-    public CertificateRegisterControllerImpl(CertificateRegisterService certificateRegisterService) {
+    public CertificateRegisterControllerImpl(CertificateRegisterService certificateRegisterService, CertificateSearchService certificateSearchService) {
         this.certificateRegisterService = certificateRegisterService;
+        this.certificateSearchService = certificateSearchService;
     }
 
     @PostMapping
     public ResponseEntity<Certificate> register(@RequestBody CertificateRequest request) {
         return ResponseEntity.ok().body(certificateRegisterService.register(request));
+    }
+
+    @GetMapping("/{identifier}")
+    public ResponseEntity<Certificate> findByIdentifier(@PathVariable UUID identifier) {
+        return ResponseEntity.ok().body(certificateSearchService.findByIdentifier(identifier));
     }
 }

@@ -1,4 +1,4 @@
-package com.cinelist.ms.catalog.integrations.certificates;
+package com.cinelist.ms.catalog.integrations.certificates.controllers;
 
 import com.cinelist.ms.catalog.dtos.genres.CertificateRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,7 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
-public class CertificateRegisterServiceTest {
+public class CertificateRegisterControllerTest {
     @Autowired
     private WebApplicationContext wac;
 
