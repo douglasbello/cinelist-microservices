@@ -38,7 +38,7 @@ CREATE TABLE tb_movies(
 	duration VARCHAR(15),
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP DEFAULT NULL,
-	FOREIGN KEY (certificate_identifier) REFERENCES tb_certificates (identifier)
+	FOREIGN KEY (certificate_identifier) REFERENCES tb_certificates (identifier) ON DELETE CASCADE
 );
 
 CREATE TABLE tb_movies_genres(
@@ -47,8 +47,8 @@ CREATE TABLE tb_movies_genres(
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP DEFAULT NULL,
 	PRIMARY KEY (movie_identifier, genre_identifier),
-	FOREIGN KEY (movie_identifier) REFERENCES tb_movies (identifier),
-	FOREIGN KEY (genre_identifier) REFERENCES tb_genres (identifier)
+	FOREIGN KEY (movie_identifier) REFERENCES tb_movies (identifier) ON DELETE CASCADE,
+	FOREIGN KEY (genre_identifier) REFERENCES tb_genres (identifier) ON DELETE CASCADE
 );
 
 CREATE TABLE tb_movies_languages(
@@ -57,8 +57,8 @@ CREATE TABLE tb_movies_languages(
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP DEFAULT NULL,
 	PRIMARY KEY (movie_identifier, language_identifier),
-	FOREIGN KEY (movie_identifier) REFERENCES tb_movies (identifier),
-	FOREIGN KEY (language_identifier) REFERENCES tb_languages (identifier)
+	FOREIGN KEY (movie_identifier) REFERENCES tb_movies (identifier) ON DELETE CASCADE,
+	FOREIGN KEY (language_identifier) REFERENCES tb_languages (identifier) ON DELETE CASCADE
 );
 
 CREATE TABLE tb_movies_platforms(
@@ -67,8 +67,8 @@ CREATE TABLE tb_movies_platforms(
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP DEFAULT NULL,
 	PRIMARY KEY (movie_identifier, platform_identifier),
-	FOREIGN KEY (movie_identifier) REFERENCES tb_movies (identifier),
-	FOREIGN KEY (platform_identifier) REFERENCES tb_platforms (identifier)
+	FOREIGN KEY (movie_identifier) REFERENCES tb_movies (identifier) ON DELETE CASCADE,
+	FOREIGN KEY (platform_identifier) REFERENCES tb_platforms (identifier) ON DELETE CASCADE
 );
 
 CREATE TABLE tb_shows(
@@ -82,7 +82,7 @@ CREATE TABLE tb_shows(
 	certificate_identifier UUID,
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP DEFAULT NULL,
-	FOREIGN KEY (certificate_identifier) REFERENCES tb_certificates (identifier)
+	FOREIGN KEY (certificate_identifier) REFERENCES tb_certificates (identifier) ON DELETE CASCADE
 );
 
 CREATE TABLE tb_shows_genres(
@@ -91,8 +91,8 @@ CREATE TABLE tb_shows_genres(
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP DEFAULT NULL,
 	PRIMARY KEY (show_identifier, genre_identifier),
-	FOREIGN KEY (show_identifier) REFERENCES tb_shows (identifier),
-	FOREIGN KEY (genre_identifier) REFERENCES tb_genres (identifier)
+	FOREIGN KEY (show_identifier) REFERENCES tb_shows (identifier) ON DELETE CASCADE,
+	FOREIGN KEY (genre_identifier) REFERENCES tb_genres (identifier) ON DELETE CASCADE
 );
 
 CREATE TABLE tb_shows_languages(
@@ -101,8 +101,8 @@ CREATE TABLE tb_shows_languages(
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP DEFAULT NULL,
 	PRIMARY KEY (show_identifier, language_identifier),
-	FOREIGN KEY (show_identifier) REFERENCES tb_shows (identifier),
-	FOREIGN KEY (language_identifier) REFERENCES tb_languages (identifier)
+	FOREIGN KEY (show_identifier) REFERENCES tb_shows (identifier) ON DELETE CASCADE,
+	FOREIGN KEY (language_identifier) REFERENCES tb_languages (identifier) ON DELETE CASCADE
 );
 
 CREATE TABLE tb_shows_platforms(
@@ -111,8 +111,8 @@ CREATE TABLE tb_shows_platforms(
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP DEFAULT NULL,
 	PRIMARY KEY (show_identifier, platform_identifier),
-	FOREIGN KEY (show_identifier) REFERENCES tb_shows (identifier),
-	FOREIGN KEY (platform_identifier) REFERENCES tb_platforms (identifier)
+	FOREIGN KEY (show_identifier) REFERENCES tb_shows (identifier) ON DELETE CASCADE,
+	FOREIGN KEY (platform_identifier) REFERENCES tb_platforms (identifier) ON DELETE CASCADE
 );
 
 CREATE TABLE tb_seasons(
@@ -122,7 +122,7 @@ CREATE TABLE tb_seasons(
 	show_identifier UUID NOT NULL,
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP DEFAULT NULL,
-	FOREIGN KEY (show_identifier) REFERENCES tb_shows (identifier)
+	FOREIGN KEY (show_identifier) REFERENCES tb_shows (identifier) ON DELETE CASCADE
 );
 
 CREATE OR REPLACE FUNCTION update_modified_column()
