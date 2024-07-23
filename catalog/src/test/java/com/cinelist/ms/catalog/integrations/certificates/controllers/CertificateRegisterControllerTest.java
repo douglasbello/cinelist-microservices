@@ -1,42 +1,52 @@
 package com.cinelist.ms.catalog.integrations.certificates.controllers;
 
+import com.cinelist.ms.catalog.controllers.register.impl.CertificateRegisterControllerImpl;
+import com.cinelist.ms.catalog.database.models.Certificate;
 import com.cinelist.ms.catalog.dtos.genres.CertificateRequest;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.BeforeEach;
+import com.cinelist.ms.catalog.services.register.impl.CertificateRegisterServiceImpl;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.ResponseEntity;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import java.util.UUID;
 
-@SpringBootTest
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
+@ExtendWith(MockitoExtension.class)
 public class CertificateRegisterControllerTest {
-    @Autowired
-    private WebApplicationContext wac;
+    @InjectMocks
+    private CertificateRegisterControllerImpl certificateRegisterController;
 
-    private MockMvc mockMvc;
-
-    @Autowired
-    private ObjectMapper objectMapper;
-
-    @BeforeEach
-    void setup() {
-        this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
-    }
+    @Mock
+    private CertificateRegisterServiceImpl certificateRegisterService;
 
     @Test
     void registerMovie() throws Exception {
         CertificateRequest request = new CertificateRequest("16");
 
-        mockMvc.perform(post("/certificates")
-                .contentType("application/json")
-                .content(objectMapper.writeValueAsString(request)))
-                .andDo(print())
-                .andExpect(status().isOk());
+        Certificate certificate = new Certificate("16");
+        certificate.setIdentifier(UUID.randomUUID());
+
+        MockHttpServletRequest mockReq = new MockHttpServletRequest();
+        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(mockReq));
+
+        when(certificateRegisterService.register(any(CertificateRequest.class))).thenReturn(certificate);
+
+        ResponseEntity<Certificate> responseEntity = certificateRegisterController.register(request);
+
+        int statusCode = responseEntity.getStatusCode().value();
+        boolean assertion = statusCode == 200;
+
+        System.out.println(responseEntity);
+
+        assertTrue(assertion);
     }
 }

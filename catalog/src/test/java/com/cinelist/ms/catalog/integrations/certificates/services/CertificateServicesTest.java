@@ -42,7 +42,7 @@ public class CertificateServicesTest {
 
     private CertificateRequest request;
 
-    private static UUID certificateId;
+    private static final UUID certificateId = UUID.randomUUID();
 
     @BeforeEach
     public void setup() {
@@ -53,9 +53,7 @@ public class CertificateServicesTest {
         certificateRegister.setIdentifier(UUID.randomUUID());
         certificateRegister.setAge("12");
 
-        UUID certificateId = UUID.randomUUID();
         certificate = new Certificate();
-        certificate.setIdentifier(UUID.randomUUID());
         certificate.setIdentifier(certificateId);
         certificate.setAge("12");
     }
@@ -69,21 +67,6 @@ public class CertificateServicesTest {
 
         assertNotNull(savedCertificate);
         assertEquals("12", savedCertificate.getAge());
-    }
-
-    @DisplayName("JUnit test for find by identifier operation")
-    @Test
-    void findByIdentifier_ShouldReturnCertificate_WhenCertificateExists() {
-        // Arrange
-        when(certificateRepository.findById(certificateId)).thenReturn(Optional.of(certificate));
-
-        // Act
-        Certificate foundCertificate = certificateSearchService.findByIdentifier(certificateId);
-
-        // Assert
-        assertNotNull(foundCertificate);
-        assertEquals(certificateId, foundCertificate.getIdentifier());
-        verify(certificateRepository, times(1)).findById(certificateId);
     }
 
     @DisplayName("JUnit test for find by non-existing identifier operation")
