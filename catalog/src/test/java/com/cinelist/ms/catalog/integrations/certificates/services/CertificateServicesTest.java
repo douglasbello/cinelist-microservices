@@ -27,7 +27,7 @@ import static org.mockito.Mockito.*;
 @SpringBootTest
 public class CertificateServicesTest {
 
-    @Autowired
+    @InjectMocks
     private CertificateRegisterServiceImpl certificateRegisterService;
 
     @InjectMocks
@@ -46,7 +46,7 @@ public class CertificateServicesTest {
 
     @BeforeEach
     public void setup() {
-        MockitoAnnotations.openMocks(this);
+        MockitoAnnotations.openMocks(CertificateServicesTest.class);
         request = new CertificateRequest("12");
 
         certificateRegister = new Certificate();
