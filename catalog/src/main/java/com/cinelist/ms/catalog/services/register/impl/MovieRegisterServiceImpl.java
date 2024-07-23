@@ -6,19 +6,26 @@ import com.cinelist.ms.catalog.dtos.movies.MovieRequest;
 import com.cinelist.ms.catalog.handlers.exceptions.ResourceNotFoundException;
 import com.cinelist.ms.catalog.services.register.MovieRegisterService;
 import com.cinelist.ms.catalog.services.search.CertificateSearchService;
+import com.cinelist.ms.catalog.services.update.MovieUpdateService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.UUID;
 
 @Service
 public class MovieRegisterServiceImpl implements MovieRegisterService {
     private final MovieRepository movieRepository;
     private final CertificateSearchService certificateSearchService;
+    private final MovieUpdateService movieUpdateService;
 
-    public MovieRegisterServiceImpl(MovieRepository movieRepository, CertificateSearchService certificateSearchService) {
+    public MovieRegisterServiceImpl(MovieRepository movieRepository, CertificateSearchService certificateSearchService,
+                                    MovieUpdateService movieUpdateService) {
         this.movieRepository = movieRepository;
         this.certificateSearchService = certificateSearchService;
+        this.movieUpdateService = movieUpdateService;
     }
 
-    @Override
+    @Transactional
     public Movie register(MovieRequest request) {
         boolean certificateExists = certificateSearchService.exists(request.certificateIdentifier());
 
@@ -36,6 +43,13 @@ public class MovieRegisterServiceImpl implements MovieRegisterService {
                 .setReleaseDate(request.releaseDate())
                 .build();
 
-        return movieRepository.save(movie);
+        movie = movieRepository.save(movie);
+        UUID movieIdentifier = movie.getIdentifier();
+
+        request.platformsIdentifiers().forEach(identifier -> movieUpdateService.addPlatformToMovie(identifier, movieIdentifier));
+        request.languagesIdentifiers().forEach(identifier -> movieUpdateService.addLanguageToMovie(identifier, movieIdentifier));
+        request.genresIdentifiers().forEach(identifier -> movieUpdateService.addGenreToMovie(identifier, movieIdentifier));
+
+        return movie;
     }
 }

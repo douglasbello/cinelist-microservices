@@ -2,8 +2,10 @@ package com.cinelist.ms.catalog.services.update.impl;
 
 import com.cinelist.ms.catalog.database.models.*;
 import com.cinelist.ms.catalog.database.repositories.MoviesGenresRepository;
+import com.cinelist.ms.catalog.database.repositories.MoviesLanguagesRepository;
 import com.cinelist.ms.catalog.database.repositories.MoviesPlatformsRepository;
 import com.cinelist.ms.catalog.services.search.GenreSearchService;
+import com.cinelist.ms.catalog.services.search.LanguageSearchService;
 import com.cinelist.ms.catalog.services.search.MovieSearchService;
 import com.cinelist.ms.catalog.services.search.PlatformSearchService;
 import com.cinelist.ms.catalog.services.update.MovieUpdateService;
@@ -18,14 +20,18 @@ public class MovieUpdateServiceImpl implements MovieUpdateService {
     private final MoviesGenresRepository moviesGenresRepository;
     private final PlatformSearchService platformSearchService;
     private final MoviesPlatformsRepository moviesPlatformsRepository;
+    private final LanguageSearchService languageSearchService;
+    private final MoviesLanguagesRepository moviesLanguagesRepository;
 
     public MovieUpdateServiceImpl(GenreSearchService genreSearchService, MovieSearchService movieSearchService, MoviesGenresRepository moviesGenresRepository,
-                                  PlatformSearchService platformSearchService, MoviesPlatformsRepository moviesPlatformsRepository) {
+                                  PlatformSearchService platformSearchService, MoviesPlatformsRepository moviesPlatformsRepository, LanguageSearchService languageSearchService, MoviesLanguagesRepository moviesLanguagesRepository) {
         this.genreSearchService = genreSearchService;
         this.movieSearchService = movieSearchService;
         this.moviesGenresRepository = moviesGenresRepository;
         this.platformSearchService = platformSearchService;
         this.moviesPlatformsRepository = moviesPlatformsRepository;
+        this.languageSearchService = languageSearchService;
+        this.moviesLanguagesRepository = moviesLanguagesRepository;
     }
 
     @Override
@@ -52,5 +58,12 @@ public class MovieUpdateServiceImpl implements MovieUpdateService {
 
     @Override
     public void addLanguageToMovie(UUID languageIdentifier, UUID movieIdentifier) {
+        Language language = languageSearchService.findByIdentifier(languageIdentifier);
+        Movie movie = movieSearchService.findByIdentifier(movieIdentifier);
+
+        MoviesLanguagesId moviesLanguagesId = new MoviesLanguagesId(movieIdentifier, languageIdentifier);
+        MoviesLanguages moviesLanguages = new MoviesLanguages(moviesLanguagesId);
+
+        moviesLanguagesRepository.save(moviesLanguages);
     }
 }
