@@ -34,27 +34,33 @@ public class MovieRegisterServiceTest {
 
     private Movie movie;
 
+    List<UUID> platformsIdentifiers = new ArrayList<>();
+    List<UUID> genresIdentifiers = new ArrayList<>();
+    List<UUID> languagesIdentifiers = new ArrayList<>();
+
     @BeforeEach
     void setup() {
-        MockitoAnnotations.openMocks(this);
-
-        List<UUID> platformsIdentifiers = new ArrayList<>();
-        List<UUID> genresIdentifiers = new ArrayList<>();
-        List<UUID> languagesIdentifiers = new ArrayList<>();
+        MockitoAnnotations.openMocks(MovieRegisterServiceTest.class);
 
         platformsIdentifiers.add(UUID.fromString("8657bded-74a8-4f01-a877-c0eed45d94b5"));
         genresIdentifiers.add(UUID.fromString("a230ee11-55ac-43cb-b7dd-337832182c66"));
         languagesIdentifiers.add(UUID.fromString("4b35ea67-bd6d-4a55-8eb4-b246e08dabf6"));
 
         request = new MovieRequest("Interstellar", "Short Description", "Long Description", LocalDate.of(2014, 11, 6), null,
-                null, UUID.fromString("072a351f-0b85-452e-a0f7-469a2c2f26bc"), null, genresIdentifiers, languagesIdentifiers, platformsIdentifiers);
+                null, null, null, null, null, null);
 
         movie = new Movie.MovieBuilder()
-                .setTitle("Interstellar")
+                .setTitle(request.title())
+                .setThumbnailUrl(request.thumbnailUrl())
+                .setTrailerUrl(request.trailerUrl())
+                .setReleaseDate(request.releaseDate())
+                .setLongDescription(request.longDescription())
+                .setShortDescription(request.shortDescription())
+                .setDuration(request.duration())
                 .build();
     }
 
-    @DisplayName("JUnit test for save movie operation")
+    @DisplayName("Given MovieRequest when save should return saved movie")
     @Test
     void givenMovieRequest_whenSave_thenReturnSavedMovie() {
         when(movieRepository.save(any(Movie.class))).thenReturn(movie);

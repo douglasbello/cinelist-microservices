@@ -46,9 +46,14 @@ public class MovieRegisterServiceImpl implements MovieRegisterService {
         movie = movieRepository.save(movie);
         UUID movieIdentifier = movie.getIdentifier();
 
-        request.platformsIdentifiers().forEach(identifier -> movieUpdateService.addPlatformToMovie(identifier, movieIdentifier));
-        request.languagesIdentifiers().forEach(identifier -> movieUpdateService.addLanguageToMovie(identifier, movieIdentifier));
-        request.genresIdentifiers().forEach(identifier -> movieUpdateService.addGenreToMovie(identifier, movieIdentifier));
+        if (request.platformsIdentifiers() != null)
+            request.platformsIdentifiers().forEach(identifier -> movieUpdateService.addPlatformToMovie(identifier, movieIdentifier));
+
+        if (request.languagesIdentifiers() != null)
+            request.languagesIdentifiers().forEach(identifier -> movieUpdateService.addLanguageToMovie(identifier, movieIdentifier));
+
+        if (request.genresIdentifiers() != null)
+            request.genresIdentifiers().forEach(identifier -> movieUpdateService.addGenreToMovie(identifier, movieIdentifier));
 
         return movie;
     }
