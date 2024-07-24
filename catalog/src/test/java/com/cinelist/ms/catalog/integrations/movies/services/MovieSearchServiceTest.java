@@ -9,11 +9,10 @@ import com.cinelist.ms.catalog.services.search.impl.MovieSearchServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -29,6 +28,12 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 public class MovieSearchServiceTest {
     @InjectMocks
     private MovieSearchServiceImpl movieSearchService;
+
+    @Autowired
+    private MovieSearchServiceImpl movieSearchServiceAutowired;
+
+    @MockBean
+    private MovieRepository movieRepositoryMockedBean;
 
     @Mock
     private MovieRepository movieRepository;
@@ -159,5 +164,72 @@ public class MovieSearchServiceTest {
         assertFalse(foundMovies.getContent().isEmpty());
 
         System.out.println(foundMovies);
+    }
+
+    @DisplayName("Should return list of movies found by title")
+    @Test
+    void givenTitle_shouldReturnListOfMovies() {
+        String title = "matrix";
+
+        Pageable pageable = PageRequest.of(0, 2);
+
+        // mock the repository to return movies that contain the title substring
+        Mockito.when(movieRepositoryMockedBean.findAllByTitle(Mockito.argThat(new TitleContainsMatcher(title)), Mockito.eq(pageable)))
+                .thenAnswer(invocation -> {
+                    String searchTitle = invocation.getArgument(0);
+                    Pageable pageRequest = invocation.getArgument(1);
+
+                    // simulate database search
+                    if (matrix.getTitle().toLowerCase().contains(searchTitle.toLowerCase()))
+                        return new PageImpl<>(List.of(matrix), pageRequest, 1);
+                    else
+                        return Page.empty(pageRequest);
+                });
+
+        Page<Movie> foundMovies = movieSearchServiceAutowired.findAllByTitle(title, pageable);
+
+        assertFalse(foundMovies.getContent().isEmpty());
+
+        System.out.println(foundMovies.getContent());
+    }
+
+    @DisplayName("Given non-existing title should fail")
+    @Test
+    void givenTitle_shouldFail() {
+        String title = "interstellar";
+
+        Pageable pageable = PageRequest.of(0, 2);
+
+        // mock the repository to return movies that contain the title substring
+        Mockito.when(movieRepositoryMockedBean.findAllByTitle(Mockito.argThat(new TitleContainsMatcher(title)), Mockito.eq(pageable)))
+                .thenAnswer(invocation -> {
+                    String searchTitle = invocation.getArgument(0);
+                    Pageable pageRequest = invocation.getArgument(1);
+
+                    // simulate database search
+                    if (matrix.getTitle().toLowerCase().contains(searchTitle.toLowerCase()))
+                        return new PageImpl<>(List.of(matrix), pageRequest, 1);
+                    else
+                        return Page.empty(pageRequest);
+                });
+
+        Page<Movie> foundMovies = movieSearchServiceAutowired.findAllByTitle(title, pageable);
+
+        assertFalse(foundMovies.getContent().isEmpty());
+
+        System.out.println(foundMovies.getContent());
+    }
+
+    static class TitleContainsMatcher implements ArgumentMatcher<String> {
+        private final String title;
+
+        TitleContainsMatcher(String title) {
+            this.title = title;
+        }
+
+        @Override
+        public boolean matches(String s) {
+            return s != null && s.toLowerCase().contains(title.toLowerCase());
+        }
     }
 }

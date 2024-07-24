@@ -13,4 +13,5 @@ public interface MovieSearchService {
     Page<Movie> findAllByPlatformIdentifier(UUID platformIdentifier, Pageable pageable);
     Page<Movie> findAllByLanguageIdentifier(UUID languageIdentifier, Pageable pageable);
     Page<Movie> findAllByCertificateIdentifier(UUID certificateIdentifier, Pageable pageable);
+    Page<Movie> findAllByTitle(String title, Pageable pageable);
 }

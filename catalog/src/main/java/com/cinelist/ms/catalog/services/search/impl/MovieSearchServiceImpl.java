@@ -77,4 +77,9 @@ public class MovieSearchServiceImpl implements MovieSearchService {
     public Page<Movie> findAllByCertificateIdentifier(UUID certificateIdentifier, Pageable pageable) {
         return movieRepository.findAllByCertificateIdentifier(certificateIdentifier, pageable);
     }
+
+    @Override
+    public Page<Movie> findAllByTitle(String title, Pageable pageable) {
+        return movieRepository.findAllByTitle(title, pageable);
+    }
 }
