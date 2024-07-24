@@ -14,4 +14,8 @@ public interface MovieRepository extends JpaRepository<Movie, UUID> {
     Page<Movie> findAllByLanguageIdentifier(UUID languageIdentifier, Pageable pageable);
     @Query(value = "SELECT m FROM Movie m WHERE LOWER(m.title) LIKE LOWER(CONCAT('%', :title, '%'))")
     Page<Movie> findAllByTitle(@Param("title") String title, Pageable pageable);
+    @Query(value = "SELECT m FROM Movie m WHERE m.releaseDate > CURRENT_DATE")
+    Page<Movie> upcoming(Pageable pageable);
+    @Query(value = "SELECT m FROM Movie m WHERE m.releaseDate <= CURRENT_DATE")
+    Page<Movie> latest(Pageable pageable);
 }

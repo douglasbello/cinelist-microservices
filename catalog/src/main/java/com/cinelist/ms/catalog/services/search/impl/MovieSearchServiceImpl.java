@@ -73,4 +73,14 @@ public class MovieSearchServiceImpl implements MovieSearchService {
     public Page<Movie> findAllByTitle(String title, Pageable pageable) {
         return movieRepository.findAllByTitle(title, pageable);
     }
+
+    @Override
+    public Page<Movie> upcoming(Pageable pageable) {
+        return movieRepository.upcoming(pageable);
+    }
+
+    @Override
+    public Page<Movie> latest(Pageable pageable) {
+        return movieRepository.upcoming(pageable);
+    }
 }

@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/movies")
 public class MovieRegisterControllerImpl implements MovieRegisterController {
@@ -22,5 +24,12 @@ public class MovieRegisterControllerImpl implements MovieRegisterController {
     @PostMapping
     public ResponseEntity<Movie> register(@RequestBody MovieRequest request) {
         return ResponseEntity.ok().body(movieRegisterService.register(request));
+    }
+
+    @PostMapping("/all")
+    public ResponseEntity<List<Movie>> registerAll(@RequestBody List<MovieRequest> movieRequests) {
+        List<Movie> response = movieRequests.stream().map(req -> movieRegisterService.register(req)).toList();
+
+        return ResponseEntity.ok().body(response);
     }
 }
