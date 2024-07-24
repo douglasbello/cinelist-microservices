@@ -6,6 +6,7 @@ import com.cinelist.ms.catalog.dtos.movies.MovieRequest;
 import com.cinelist.ms.catalog.handlers.exceptions.ResourceNotFoundException;
 import com.cinelist.ms.catalog.services.register.MovieRegisterService;
 import com.cinelist.ms.catalog.services.search.CertificateSearchService;
+import com.cinelist.ms.catalog.services.search.LanguageSearchService;
 import com.cinelist.ms.catalog.services.update.MovieUpdateService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,24 +18,29 @@ public class MovieRegisterServiceImpl implements MovieRegisterService {
     private final MovieRepository movieRepository;
     private final CertificateSearchService certificateSearchService;
     private final MovieUpdateService movieUpdateService;
+    private final LanguageSearchService languageSearchService;
 
     public MovieRegisterServiceImpl(MovieRepository movieRepository, CertificateSearchService certificateSearchService,
-                                    MovieUpdateService movieUpdateService) {
+                                    MovieUpdateService movieUpdateService, LanguageSearchService languageSearchService) {
         this.movieRepository = movieRepository;
         this.certificateSearchService = certificateSearchService;
         this.movieUpdateService = movieUpdateService;
+        this.languageSearchService = languageSearchService;
     }
 
     @Transactional
     public Movie register(MovieRequest request) {
-        boolean certificateExists = certificateSearchService.exists(request.certificateIdentifier());
 
-        if (request.certificateIdentifier() != null && !certificateExists)
-            throw new ResourceNotFoundException("Certificate", request.certificateIdentifier().toString());
+        if (request.certificateIdentifier() != null)
+            certificateSearchService.findByIdentifier(request.certificateIdentifier());
+
+        if (request.languageIdentifier() != null)
+            languageSearchService.findByIdentifier(request.languageIdentifier());
 
         Movie movie = new Movie.MovieBuilder()
                 .setTitle(request.title())
-                .setCertificateId(request.certificateIdentifier())
+                .setCertificateIdentifier(request.certificateIdentifier())
+                .setLanguageIdentifier(request.languageIdentifier())
                 .setDuration(request.duration())
                 .setShortDescription(request.shortDescription())
                 .setLongDescription(request.longDescription())
@@ -48,9 +54,6 @@ public class MovieRegisterServiceImpl implements MovieRegisterService {
 
         if (request.platformsIdentifiers() != null)
             request.platformsIdentifiers().forEach(identifier -> movieUpdateService.addPlatformToMovie(identifier, movieIdentifier));
-
-        if (request.languagesIdentifiers() != null)
-            request.languagesIdentifiers().forEach(identifier -> movieUpdateService.addLanguageToMovie(identifier, movieIdentifier));
 
         if (request.genresIdentifiers() != null)
             request.genresIdentifiers().forEach(identifier -> movieUpdateService.addGenreToMovie(identifier, movieIdentifier));

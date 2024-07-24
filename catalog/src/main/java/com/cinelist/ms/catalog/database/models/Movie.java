@@ -27,6 +27,8 @@ public class Movie {
     private String thumbnailUrl;
     @Column(name = "certificate_identifier", length = 36, columnDefinition = "UUID")
     private UUID certificateIdentifier;
+    @Column(name = "language_identifier", length = 36, columnDefinition = "UUID")
+    private UUID languageIdentifier;
     @Column(name = "duration", length = 15)
     private String duration;
 
@@ -41,6 +43,7 @@ public class Movie {
         this.trailerUrl = builder.trailerUrl;
         this.thumbnailUrl = builder.thumbnailUrl;
         this.certificateIdentifier = builder.certificateIdentifier;
+        this.languageIdentifier = builder.languageIdentifier;
         this.duration = builder.duration;
     }
 
@@ -108,6 +111,14 @@ public class Movie {
         this.certificateIdentifier = certificateId;
     }
 
+    public UUID getLanguageIdentifier() {
+        return languageIdentifier;
+    }
+
+    public void setLanguageIdentifier(UUID languageIdentifier) {
+        this.languageIdentifier = languageIdentifier;
+    }
+
     public String getDuration() {
         return duration;
     }
@@ -124,6 +135,7 @@ public class Movie {
         private String trailerUrl;
         private String thumbnailUrl;
         private UUID certificateIdentifier;
+        private UUID languageIdentifier;
         private String duration;
 
         public MovieBuilder setTitle(String title) {
@@ -162,8 +174,14 @@ public class Movie {
             return this;
         }
 
-        public MovieBuilder setCertificateId(UUID certificateIdentifier) {
+        public MovieBuilder setCertificateIdentifier(UUID certificateIdentifier) {
             this.certificateIdentifier = certificateIdentifier;
+
+            return this;
+        }
+
+        public MovieBuilder setLanguageIdentifier(UUID languageIdentifier) {
+            this.languageIdentifier = languageIdentifier;
 
             return this;
         }
@@ -195,14 +213,15 @@ public class Movie {
     @Override
     public String toString() {
         return "Movie{" +
-                "identifier='" + identifier + '\'' +
+                "identifier=" + identifier +
                 ", title='" + title + '\'' +
                 ", shortDescription='" + shortDescription + '\'' +
                 ", longDescription='" + longDescription + '\'' +
                 ", releaseDate=" + releaseDate +
                 ", trailerUrl='" + trailerUrl + '\'' +
                 ", thumbnailUrl='" + thumbnailUrl + '\'' +
-                ", certificateId='" + certificateIdentifier + '\'' +
+                ", certificateIdentifier=" + certificateIdentifier +
+                ", languageIdentifier=" + languageIdentifier +
                 ", duration='" + duration + '\'' +
                 '}';
     }

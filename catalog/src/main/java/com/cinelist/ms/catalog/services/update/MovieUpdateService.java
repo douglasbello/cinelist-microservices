@@ -5,5 +5,4 @@ import java.util.UUID;
 public interface MovieUpdateService {
     void addGenreToMovie(UUID genreIdentifier, UUID movieIdentifier);
     void addPlatformToMovie(UUID platformIdentifier, UUID movieIdentifier);
-    void addLanguageToMovie(UUID languageIdentifier, UUID movieIdentifier);
 }

@@ -11,6 +11,7 @@ import java.util.UUID;
 
 public interface MovieRepository extends JpaRepository<Movie, UUID> {
     Page<Movie> findAllByCertificateIdentifier(UUID certificateIdentifier, Pageable pageable);
+    Page<Movie> findAllByLanguageIdentifier(UUID languageIdentifier, Pageable pageable);
     @Query(value = "SELECT m FROM Movie m WHERE LOWER(m.title) LIKE LOWER(CONCAT('%', :title, '%'))")
     Page<Movie> findAllByTitle(@Param("title") String title, Pageable pageable);
 }

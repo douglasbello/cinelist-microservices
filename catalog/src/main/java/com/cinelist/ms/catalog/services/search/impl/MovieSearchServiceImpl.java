@@ -2,11 +2,9 @@ package com.cinelist.ms.catalog.services.search.impl;
 
 import com.cinelist.ms.catalog.database.models.Movie;
 import com.cinelist.ms.catalog.database.models.MoviesGenres;
-import com.cinelist.ms.catalog.database.models.MoviesLanguages;
 import com.cinelist.ms.catalog.database.models.MoviesPlatforms;
 import com.cinelist.ms.catalog.database.repositories.MovieRepository;
 import com.cinelist.ms.catalog.database.repositories.MoviesGenresRepository;
-import com.cinelist.ms.catalog.database.repositories.MoviesLanguagesRepository;
 import com.cinelist.ms.catalog.database.repositories.MoviesPlatformsRepository;
 import com.cinelist.ms.catalog.handlers.exceptions.ResourceNotFoundException;
 import com.cinelist.ms.catalog.services.search.MovieSearchService;
@@ -23,16 +21,13 @@ public class MovieSearchServiceImpl implements MovieSearchService {
     private final MovieRepository movieRepository;
     private final MoviesGenresRepository moviesGenresRepository;
     private final MoviesPlatformsRepository moviesPlatformsRepository;
-    private final MoviesLanguagesRepository moviesLanguagesRepository;
 
     public MovieSearchServiceImpl(MovieRepository movieRepository,
                                   MoviesGenresRepository moviesGenresRepository,
-                                  MoviesPlatformsRepository moviesPlatformsRepository,
-                                  MoviesLanguagesRepository moviesLanguagesRepository) {
+                                  MoviesPlatformsRepository moviesPlatformsRepository) {
         this.movieRepository = movieRepository;
         this.moviesGenresRepository = moviesGenresRepository;
         this.moviesPlatformsRepository = moviesPlatformsRepository;
-        this.moviesLanguagesRepository = moviesLanguagesRepository;
     }
 
     @Override
@@ -66,11 +61,7 @@ public class MovieSearchServiceImpl implements MovieSearchService {
 
     @Override
     public Page<Movie> findAllByLanguageIdentifier(UUID languageIdentifier, Pageable pageable) {
-        Page<MoviesLanguages> data = moviesLanguagesRepository.findAllByLanguageIdentifier(languageIdentifier, pageable);
-
-        List<Movie> movies = data.stream().map(moviesLanguages -> findByIdentifier(moviesLanguages.getMovieIdentifier())).toList();
-
-        return new PageImpl<>(movies);
+        return movieRepository.findAllByLanguageIdentifier(languageIdentifier, pageable);
     }
 
     @Override

@@ -35,10 +35,12 @@ CREATE TABLE tb_movies(
 	trailer_url VARCHAR(255),
 	thumbnail_url VARCHAR(255),
 	certificate_identifier UUID,
+	language_identifier UUID,
 	duration VARCHAR(15),
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP DEFAULT NULL,
-	FOREIGN KEY (certificate_identifier) REFERENCES tb_certificates (identifier) ON DELETE CASCADE
+	FOREIGN KEY (certificate_identifier) REFERENCES tb_certificates (identifier) ON DELETE CASCADE,
+	FOREIGN KEY (language_identifier) REFERENCES tb_languages (identifier) ON DELETE CASCADE
 );
 
 CREATE TABLE tb_movies_genres(
@@ -49,16 +51,6 @@ CREATE TABLE tb_movies_genres(
 	PRIMARY KEY (movie_identifier, genre_identifier),
 	FOREIGN KEY (movie_identifier) REFERENCES tb_movies (identifier) ON DELETE CASCADE,
 	FOREIGN KEY (genre_identifier) REFERENCES tb_genres (identifier) ON DELETE CASCADE
-);
-
-CREATE TABLE tb_movies_languages(
-	movie_identifier UUID NOT NULL,
-	language_identifier UUID NOT NULL,
-	created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-	updated_at TIMESTAMP DEFAULT NULL,
-	PRIMARY KEY (movie_identifier, language_identifier),
-	FOREIGN KEY (movie_identifier) REFERENCES tb_movies (identifier) ON DELETE CASCADE,
-	FOREIGN KEY (language_identifier) REFERENCES tb_languages (identifier) ON DELETE CASCADE
 );
 
 CREATE TABLE tb_movies_platforms(

@@ -2,7 +2,6 @@ package com.cinelist.ms.catalog.services.update.impl;
 
 import com.cinelist.ms.catalog.database.models.*;
 import com.cinelist.ms.catalog.database.repositories.MoviesGenresRepository;
-import com.cinelist.ms.catalog.database.repositories.MoviesLanguagesRepository;
 import com.cinelist.ms.catalog.database.repositories.MoviesPlatformsRepository;
 import com.cinelist.ms.catalog.services.search.GenreSearchService;
 import com.cinelist.ms.catalog.services.search.LanguageSearchService;
@@ -21,17 +20,15 @@ public class MovieUpdateServiceImpl implements MovieUpdateService {
     private final PlatformSearchService platformSearchService;
     private final MoviesPlatformsRepository moviesPlatformsRepository;
     private final LanguageSearchService languageSearchService;
-    private final MoviesLanguagesRepository moviesLanguagesRepository;
 
     public MovieUpdateServiceImpl(GenreSearchService genreSearchService, MovieSearchService movieSearchService, MoviesGenresRepository moviesGenresRepository,
-                                  PlatformSearchService platformSearchService, MoviesPlatformsRepository moviesPlatformsRepository, LanguageSearchService languageSearchService, MoviesLanguagesRepository moviesLanguagesRepository) {
+                                  PlatformSearchService platformSearchService, MoviesPlatformsRepository moviesPlatformsRepository, LanguageSearchService languageSearchService) {
         this.genreSearchService = genreSearchService;
         this.movieSearchService = movieSearchService;
         this.moviesGenresRepository = moviesGenresRepository;
         this.platformSearchService = platformSearchService;
         this.moviesPlatformsRepository = moviesPlatformsRepository;
         this.languageSearchService = languageSearchService;
-        this.moviesLanguagesRepository = moviesLanguagesRepository;
     }
 
     @Override
@@ -54,16 +51,5 @@ public class MovieUpdateServiceImpl implements MovieUpdateService {
         MoviesPlatforms moviesPlatforms = new MoviesPlatforms(moviesPlatformsId);
 
         moviesPlatformsRepository.save(moviesPlatforms);
-    }
-
-    @Override
-    public void addLanguageToMovie(UUID languageIdentifier, UUID movieIdentifier) {
-        Language language = languageSearchService.findByIdentifier(languageIdentifier);
-        Movie movie = movieSearchService.findByIdentifier(movieIdentifier);
-
-        MoviesLanguagesId moviesLanguagesId = new MoviesLanguagesId(movieIdentifier, languageIdentifier);
-        MoviesLanguages moviesLanguages = new MoviesLanguages(moviesLanguagesId);
-
-        moviesLanguagesRepository.save(moviesLanguages);
     }
 }

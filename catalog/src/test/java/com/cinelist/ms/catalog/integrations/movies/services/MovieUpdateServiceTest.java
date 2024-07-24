@@ -2,7 +2,6 @@ package com.cinelist.ms.catalog.integrations.movies.services;
 
 import com.cinelist.ms.catalog.database.models.*;
 import com.cinelist.ms.catalog.database.repositories.MoviesGenresRepository;
-import com.cinelist.ms.catalog.database.repositories.MoviesLanguagesRepository;
 import com.cinelist.ms.catalog.database.repositories.MoviesPlatformsRepository;
 import com.cinelist.ms.catalog.services.search.GenreSearchService;
 import com.cinelist.ms.catalog.services.search.LanguageSearchService;
@@ -14,11 +13,13 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.UUID;
 
 import static org.mockito.Mockito.*;
 
+@SpringBootTest
 public class MovieUpdateServiceTest {
 
     @InjectMocks
@@ -39,15 +40,9 @@ public class MovieUpdateServiceTest {
     @Mock
     private MoviesPlatformsRepository moviesPlatformsRepository;
 
-    @Mock
-    private LanguageSearchService languageSearchService;
-
-    @Mock
-    private MoviesLanguagesRepository moviesLanguagesRepository;
-
     @BeforeEach
     void setup() {
-        MockitoAnnotations.openMocks(this);
+        MockitoAnnotations.openMocks(MovieUpdateServiceTest.class);
     }
 
     @Test
@@ -82,22 +77,5 @@ public class MovieUpdateServiceTest {
         verify(platformSearchService).findByIdentifier(platformId);
         verify(movieSearchService).findByIdentifier(movieId);
         verify(moviesPlatformsRepository).save(any(MoviesPlatforms.class));
-    }
-
-    @Test
-    void testAddLanguageToMovie() {
-        UUID languageId = UUID.randomUUID();
-        UUID movieId = UUID.randomUUID();
-        Language language = new Language();
-        Movie movie = new Movie.MovieBuilder().build();
-
-        when(languageSearchService.findByIdentifier(languageId)).thenReturn(language);
-        when(movieSearchService.findByIdentifier(movieId)).thenReturn(movie);
-
-        movieUpdateService.addLanguageToMovie(languageId, movieId);
-
-        verify(languageSearchService).findByIdentifier(languageId);
-        verify(movieSearchService).findByIdentifier(movieId);
-        verify(moviesLanguagesRepository).save(any(MoviesLanguages.class));
     }
 }

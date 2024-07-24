@@ -3,7 +3,6 @@ package com.cinelist.ms.catalog.integrations.movies.services;
 import com.cinelist.ms.catalog.database.models.*;
 import com.cinelist.ms.catalog.database.repositories.MovieRepository;
 import com.cinelist.ms.catalog.database.repositories.MoviesGenresRepository;
-import com.cinelist.ms.catalog.database.repositories.MoviesLanguagesRepository;
 import com.cinelist.ms.catalog.database.repositories.MoviesPlatformsRepository;
 import com.cinelist.ms.catalog.services.search.impl.MovieSearchServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
@@ -39,8 +38,6 @@ public class MovieSearchServiceTest {
     private MovieRepository movieRepository;
     @Mock
     private MoviesGenresRepository moviesGenresRepository;
-    @Mock
-    private MoviesLanguagesRepository moviesLanguagesRepository;
     @Mock
     private MoviesPlatformsRepository moviesPlatformsRepository;
 
@@ -107,23 +104,17 @@ public class MovieSearchServiceTest {
     @Test
     void givenLanguageIdentifier_shouldReturnListOfMovies() {
         UUID languageIdentifier = UUID.randomUUID();
-        UUID movieIdentifier = UUID.randomUUID();
-
-        MoviesLanguagesId moviesLanguagesId = new MoviesLanguagesId(movieIdentifier, languageIdentifier);
-        MoviesLanguages moviesLanguages = new MoviesLanguages(moviesLanguagesId);
-
-        Page<MoviesLanguages> page = new PageImpl<>(List.of(moviesLanguages));
 
         Pageable pageable = PageRequest.of(0, 2);
+        Page<Movie> movies = new PageImpl<>(List.of(interstellar));
 
-        Mockito.when(moviesLanguagesRepository.findAllByLanguageIdentifier(languageIdentifier, pageable)).thenReturn(page);
-        Mockito.when(movieRepository.findById(movieIdentifier)).thenReturn(Optional.of(interstellar));
+        Mockito.when(movieRepository.findAllByLanguageIdentifier(languageIdentifier, pageable)).thenReturn(movies);
 
-        Page<Movie> movies = movieSearchService.findAllByLanguageIdentifier(languageIdentifier, pageable);
+        Page<Movie> foundMovies = movieSearchService.findAllByLanguageIdentifier(languageIdentifier, pageable);
 
-        assertFalse(movies.getContent().isEmpty());
+        assertFalse(foundMovies.getContent().isEmpty());
 
-        System.out.println(movies.getContent());
+        System.out.println(foundMovies);
     }
 
     @DisplayName("Should return list of movies found by platform identifier")
