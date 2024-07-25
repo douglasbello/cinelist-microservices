@@ -8,6 +8,5 @@ import java.util.UUID;
 
 public interface LanguageSearchService {
     Language findByIdentifier(UUID identifier);
-    Language findByName(String name);
-    Page<Language> findAll(Pageable pageable);
+    Page<Language> findAll(String name, Pageable pageable);
 }

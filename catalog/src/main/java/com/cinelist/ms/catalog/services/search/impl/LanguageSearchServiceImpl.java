@@ -24,12 +24,10 @@ public class LanguageSearchServiceImpl implements LanguageSearchService {
     }
 
     @Override
-    public Language findByName(String name) {
-        return languageRepository.findByName(name);
-    }
+    public Page<Language> findAll(String name, Pageable pageable) {
+        if (name != null)
+            return languageRepository.findAllByName(name, pageable);
 
-    @Override
-    public Page<Language> findAll(Pageable pageable) {
         return languageRepository.findAll(pageable);
     }
 }

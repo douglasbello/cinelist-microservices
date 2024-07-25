@@ -4,6 +4,8 @@ import com.cinelist.ms.catalog.database.models.Certificate;
 import com.cinelist.ms.catalog.database.repositories.CertificateRepository;
 import com.cinelist.ms.catalog.handlers.exceptions.ResourceNotFoundException;
 import com.cinelist.ms.catalog.services.search.CertificateSearchService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -23,12 +25,7 @@ public class CertificateSearchServiceImpl implements CertificateSearchService {
     }
 
     @Override
-    public boolean exists(UUID identifier) {
-        if (identifier == null)
-            return false;
-
-        Optional<Certificate> certificate = certificateRepository.findById(identifier);
-
-        return certificate.isPresent();
+    public Page<Certificate> findAll(Pageable pageable) {
+        return certificateRepository.findAll(pageable);
     }
 }
