@@ -14,20 +14,13 @@ import java.util.UUID;
 @RequestMapping("/certificates")
 public class CertificateRegisterControllerImpl implements CertificateRegisterController {
     private CertificateRegisterService certificateRegisterService;
-    private CertificateSearchService certificateSearchService;
 
-    public CertificateRegisterControllerImpl(CertificateRegisterService certificateRegisterService, CertificateSearchService certificateSearchService) {
+    public CertificateRegisterControllerImpl(CertificateRegisterService certificateRegisterService) {
         this.certificateRegisterService = certificateRegisterService;
-        this.certificateSearchService = certificateSearchService;
     }
 
     @PostMapping
     public ResponseEntity<Certificate> register(@RequestBody CertificateRequest request) {
         return ResponseEntity.ok().body(certificateRegisterService.register(request));
-    }
-
-    @GetMapping("/{identifier}")
-    public ResponseEntity<Certificate> findByIdentifier(@PathVariable UUID identifier) {
-        return ResponseEntity.ok().body(certificateSearchService.findByIdentifier(identifier));
     }
 }
