@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -23,9 +25,13 @@ public class MovieRegisterControllerImpl implements MovieRegisterController {
 
     @PostMapping
     public ResponseEntity<Movie> register(@RequestBody MovieRequest request) {
-        return ResponseEntity.ok().body(movieRegisterService.register(request));
+        Movie created = movieRegisterService.register(request);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{identifier}").buildAndExpand(created.getIdentifier()).toUri();
+
+        return ResponseEntity.created(uri).body(created);
     }
 
+    // for development purposes only
     @PostMapping("/all")
     public ResponseEntity<List<Movie>> registerAll(@RequestBody List<MovieRequest> movieRequests) {
         List<Movie> response = movieRequests.stream().map(req -> movieRegisterService.register(req)).toList();

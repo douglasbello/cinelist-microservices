@@ -8,6 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping("/languages")
@@ -20,6 +23,9 @@ public class LanguageRegisterControllerImpl implements LanguageRegisterControlle
 
     @PostMapping
     public ResponseEntity<Language> register(LanguageRequest request) {
-        return ResponseEntity.ok().body(languageRegisterService.register(request));
+        Language created = languageRegisterService.register(request);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{identifier}").buildAndExpand(created.getIdentifier()).toUri();
+
+        return ResponseEntity.created(uri).body(created);
     }
 }

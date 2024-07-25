@@ -7,7 +7,9 @@ import com.cinelist.ms.catalog.services.register.CertificateRegisterService;
 import com.cinelist.ms.catalog.services.search.CertificateSearchService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.UUID;
 
 @RestController
@@ -21,6 +23,9 @@ public class CertificateRegisterControllerImpl implements CertificateRegisterCon
 
     @PostMapping
     public ResponseEntity<Certificate> register(@RequestBody CertificateRequest request) {
-        return ResponseEntity.ok().body(certificateRegisterService.register(request));
+        Certificate created = certificateRegisterService.register(request);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{identifier}").buildAndExpand(created.getIdentifier()).toUri();
+
+        return ResponseEntity.created(uri).body(created);
     }
 }

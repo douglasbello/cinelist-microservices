@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping("/platforms")
@@ -20,6 +23,9 @@ public class PlatformRegisterControllerImpl {
 
     @PostMapping
     public ResponseEntity<Platform> register(@RequestBody PlatformRequest request) {
-        return ResponseEntity.ok().body(platformRegisterService.register(request));
+        Platform created = platformRegisterService.register(request);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{identifier}").buildAndExpand(created.getIdentifier()).toUri();
+
+        return ResponseEntity.created(uri).body(created);
     }
 }
