@@ -19,16 +19,14 @@ public class MovieUpdateServiceImpl implements MovieUpdateService {
     private final MoviesGenresRepository moviesGenresRepository;
     private final PlatformSearchService platformSearchService;
     private final MoviesPlatformsRepository moviesPlatformsRepository;
-    private final LanguageSearchService languageSearchService;
 
     public MovieUpdateServiceImpl(GenreSearchService genreSearchService, MovieSearchService movieSearchService, MoviesGenresRepository moviesGenresRepository,
-                                  PlatformSearchService platformSearchService, MoviesPlatformsRepository moviesPlatformsRepository, LanguageSearchService languageSearchService) {
+                                  PlatformSearchService platformSearchService, MoviesPlatformsRepository moviesPlatformsRepository) {
         this.genreSearchService = genreSearchService;
         this.movieSearchService = movieSearchService;
         this.moviesGenresRepository = moviesGenresRepository;
         this.platformSearchService = platformSearchService;
         this.moviesPlatformsRepository = moviesPlatformsRepository;
-        this.languageSearchService = languageSearchService;
     }
 
     @Override

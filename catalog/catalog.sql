@@ -72,9 +72,11 @@ CREATE TABLE tb_shows(
 	trailer_url VARCHAR(255),
 	thumbnail_url VARCHAR(255),
 	certificate_identifier UUID,
+	language_identifier UUID,
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP DEFAULT NULL,
-	FOREIGN KEY (certificate_identifier) REFERENCES tb_certificates (identifier) ON DELETE CASCADE
+	FOREIGN KEY (certificate_identifier) REFERENCES tb_certificates (identifier) ON DELETE CASCADE,
+	FOREIGN KEY (language_identifier) REFERENCES tb_languages (identifier) ON DELETE CASCADE
 );
 
 CREATE TABLE tb_shows_genres(
@@ -85,16 +87,6 @@ CREATE TABLE tb_shows_genres(
 	PRIMARY KEY (show_identifier, genre_identifier),
 	FOREIGN KEY (show_identifier) REFERENCES tb_shows (identifier) ON DELETE CASCADE,
 	FOREIGN KEY (genre_identifier) REFERENCES tb_genres (identifier) ON DELETE CASCADE
-);
-
-CREATE TABLE tb_shows_languages(
-	show_identifier UUID NOT NULL,
-	language_identifier UUID NOT NULL,
-	created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-	updated_at TIMESTAMP DEFAULT NULL,
-	PRIMARY KEY (show_identifier, language_identifier),
-	FOREIGN KEY (show_identifier) REFERENCES tb_shows (identifier) ON DELETE CASCADE,
-	FOREIGN KEY (language_identifier) REFERENCES tb_languages (identifier) ON DELETE CASCADE
 );
 
 CREATE TABLE tb_shows_platforms(
@@ -134,8 +126,6 @@ CREATE TRIGGER update_modified_time BEFORE UPDATE ON tb_platforms FOR EACH ROW E
 
 CREATE TRIGGER update_modified_time BEFORE UPDATE ON tb_movies FOR EACH ROW EXECUTE PROCEDURE update_modified_column();
 
-CREATE TRIGGER update_modified_time BEFORE UPDATE ON tb_movies_languages FOR EACH ROW EXECUTE PROCEDURE update_modified_column();
-
 CREATE TRIGGER update_modified_time BEFORE UPDATE ON tb_movies_platforms FOR EACH ROW EXECUTE PROCEDURE update_modified_column();
 
 CREATE TRIGGER update_modified_time BEFORE UPDATE ON tb_movies_genres FOR EACH ROW EXECUTE PROCEDURE update_modified_column();
@@ -145,7 +135,5 @@ CREATE TRIGGER update_modified_time BEFORE UPDATE ON tb_seasons FOR EACH ROW EXE
 CREATE TRIGGER update_modified_time BEFORE UPDATE ON tb_shows FOR EACH ROW EXECUTE PROCEDURE update_modified_column();
 
 CREATE TRIGGER update_modified_time BEFORE UPDATE ON tb_shows_genres FOR EACH ROW EXECUTE PROCEDURE update_modified_column();
-
-CREATE TRIGGER update_modified_time BEFORE UPDATE ON tb_shows_languages FOR EACH ROW EXECUTE PROCEDURE update_modified_column();
 
 CREATE TRIGGER update_modified_time BEFORE UPDATE ON tb_shows_platforms FOR EACH ROW EXECUTE PROCEDURE update_modified_column();

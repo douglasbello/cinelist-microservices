@@ -29,6 +29,8 @@ public class Show {
     private String thumbnailUrl;
     @Column(name = "certificate_identifier", length = 36, columnDefinition = "UUID")
     private UUID certificateIdentifier;
+    @Column(name = "language_identifier", length = 36, columnDefinition = "UUID")
+    private UUID languageIdentifier;
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
@@ -46,6 +48,7 @@ public class Show {
         this.trailerUrl = builder.trailerUrl;
         this.thumbnailUrl = builder.thumbnailUrl;
         this.certificateIdentifier = builder.certificateIdentifier;
+        this.languageIdentifier = builder.languageIdentifier;
     }
 
     public UUID getIdentifier() {
@@ -112,6 +115,14 @@ public class Show {
         this.certificateIdentifier = certificateIdentifier;
     }
 
+    public UUID getLanguageIdentifier() {
+        return languageIdentifier;
+    }
+
+    public void setLanguageIdentifier(UUID languageIdentifier) {
+        this.languageIdentifier = languageIdentifier;
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -136,6 +147,7 @@ public class Show {
         private String thumbnailUrl;
         private String trailerUrl;
         private UUID certificateIdentifier;
+        private UUID languageIdentifier;
 
         public ShowBuilder setTitle(String title) {
             this.title = title;
@@ -175,6 +187,12 @@ public class Show {
 
         public ShowBuilder setCertificateIdentifier(UUID certificateIdentifier) {
             this.certificateIdentifier = certificateIdentifier;
+
+            return this;
+        }
+
+        public ShowBuilder setLanguageIdentifier(UUID languageIdentifier) {
+            this.languageIdentifier = languageIdentifier;
 
             return this;
         }

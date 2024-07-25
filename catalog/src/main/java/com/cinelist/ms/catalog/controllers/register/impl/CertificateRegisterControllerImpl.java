@@ -13,7 +13,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/certificates")
 public class CertificateRegisterControllerImpl implements CertificateRegisterController {
-    private CertificateRegisterService certificateRegisterService;
+    private final CertificateRegisterService certificateRegisterService;
 
     public CertificateRegisterControllerImpl(CertificateRegisterService certificateRegisterService) {
         this.certificateRegisterService = certificateRegisterService;
