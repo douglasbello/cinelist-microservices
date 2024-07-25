@@ -25,8 +25,7 @@ public class Platform {
     public Platform() {
     }
 
-    public Platform(UUID identifier, String name) {
-        this.identifier = identifier;
+    public Platform(String name) {
         this.name = name;
     }
 

@@ -2,7 +2,7 @@ package com.cinelist.ms.catalog.controllers.register.impl;
 
 import com.cinelist.ms.catalog.controllers.register.CertificateRegisterController;
 import com.cinelist.ms.catalog.database.models.Certificate;
-import com.cinelist.ms.catalog.dtos.genres.CertificateRequest;
+import com.cinelist.ms.catalog.dtos.certificates.CertificateRequest;
 import com.cinelist.ms.catalog.services.register.CertificateRegisterService;
 import com.cinelist.ms.catalog.services.search.CertificateSearchService;
 import org.springframework.http.ResponseEntity;

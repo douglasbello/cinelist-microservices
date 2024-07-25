@@ -2,7 +2,7 @@ package com.cinelist.ms.catalog.integrations.certificates.services;
 
 import com.cinelist.ms.catalog.database.models.Certificate;
 import com.cinelist.ms.catalog.database.repositories.CertificateRepository;
-import com.cinelist.ms.catalog.dtos.genres.CertificateRequest;
+import com.cinelist.ms.catalog.dtos.certificates.CertificateRequest;
 import com.cinelist.ms.catalog.handlers.exceptions.ResourceNotFoundException;
 import com.cinelist.ms.catalog.services.register.impl.CertificateRegisterServiceImpl;
 import com.cinelist.ms.catalog.services.search.impl.CertificateSearchServiceImpl;
@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Optional;

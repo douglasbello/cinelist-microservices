@@ -2,7 +2,7 @@ package com.cinelist.ms.catalog.integrations.certificates.controllers;
 
 import com.cinelist.ms.catalog.controllers.register.impl.CertificateRegisterControllerImpl;
 import com.cinelist.ms.catalog.database.models.Certificate;
-import com.cinelist.ms.catalog.dtos.genres.CertificateRequest;
+import com.cinelist.ms.catalog.dtos.certificates.CertificateRequest;
 import com.cinelist.ms.catalog.services.register.impl.CertificateRegisterServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
