@@ -4,6 +4,8 @@ import com.cinelist.ms.catalog.database.models.Language;
 import com.cinelist.ms.catalog.database.repositories.LanguageRepository;
 import com.cinelist.ms.catalog.handlers.exceptions.ResourceNotFoundException;
 import com.cinelist.ms.catalog.services.search.LanguageSearchService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -24,5 +26,10 @@ public class LanguageSearchServiceImpl implements LanguageSearchService {
     @Override
     public Language findByName(String name) {
         return languageRepository.findByName(name);
+    }
+
+    @Override
+    public Page<Language> findAll(Pageable pageable) {
+        return languageRepository.findAll(pageable);
     }
 }
