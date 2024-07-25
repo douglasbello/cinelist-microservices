@@ -81,6 +81,6 @@ public class MovieSearchServiceImpl implements MovieSearchService {
 
     @Override
     public Page<Movie> latest(Pageable pageable) {
-        return movieRepository.upcoming(pageable);
+        return movieRepository.latest(pageable);
     }
 }
