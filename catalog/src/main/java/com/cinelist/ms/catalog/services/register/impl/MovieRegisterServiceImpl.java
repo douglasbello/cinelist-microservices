@@ -31,7 +31,7 @@ public class MovieRegisterServiceImpl implements MovieRegisterService {
     }
 
     @CacheEvict(cacheNames = {
-            "allMovies", "upcomingMovies", "latestMovies"
+            "allMovies", "upcomingMovies", "latestMovies", "allMoviesByGenre", "allMoviesByPlatform", "allMoviesByLanguage", "allMoviesByCertificate", "allMoviesByTitle"
     }, allEntries = true)
     @Transactional
     public Movie register(MovieRequest request) {

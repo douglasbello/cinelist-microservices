@@ -38,7 +38,7 @@ public class MovieUpdateServiceImpl implements MovieUpdateService {
     }
 
     @CacheEvict(cacheNames = {
-            "allMovies", "upcomingMovies", "latestMovies"
+            "allMovies", "upcomingMovies", "latestMovies", "allMoviesByGenre", "allMoviesByPlatform", "allMoviesByLanguage", "allMoviesByCertificate", "allMoviesByTitle"
     }, allEntries = true)
     @Override
     public void addGenreToMovie(UUID genreIdentifier, UUID movieIdentifier) {
@@ -52,7 +52,7 @@ public class MovieUpdateServiceImpl implements MovieUpdateService {
     }
 
     @CacheEvict(cacheNames = {
-            "allMovies", "upcomingMovies", "latestMovies"
+            "allMovies", "upcomingMovies", "latestMovies", "allMoviesByGenre", "allMoviesByPlatform", "allMoviesByLanguage", "allMoviesByCertificate", "allMoviesByTitle"
     }, allEntries = true)
     @Override
     public void addPlatformToMovie(UUID platformIdentifier, UUID movieIdentifier) {
@@ -66,7 +66,7 @@ public class MovieUpdateServiceImpl implements MovieUpdateService {
     }
 
     @CacheEvict(cacheNames = {
-            "allMovies", "upcomingMovies", "latestMovies"
+            "allMovies", "upcomingMovies", "latestMovies", "allMoviesByGenre", "allMoviesByPlatform", "allMoviesByLanguage", "allMoviesByCertificate", "allMoviesByTitle"
     }, allEntries = true)
     @Transactional
     @Override

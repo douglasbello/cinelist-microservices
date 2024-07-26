@@ -41,7 +41,7 @@ public class MovieSearchServiceImpl implements MovieSearchService {
         return movieRepository.findById(identifier).orElseThrow(() -> new ResourceNotFoundException("Movie", identifier.toString()));
     }
 
-    // todo: test if the pagination is really working here
+    @Cacheable(cacheNames = "allMoviesByGenre")
     @Override
     public Page<Movie> findAllByGenreIdentifier(UUID genreIdentifier, Pageable pageable) {
         Page<MoviesGenres> data = moviesGenresRepository.findAllByGenreIdentifier(genreIdentifier, pageable);
@@ -51,6 +51,7 @@ public class MovieSearchServiceImpl implements MovieSearchService {
         return new PageImpl<>(movies);
     }
 
+    @Cacheable(cacheNames = "allMoviesByPlatform")
     @Override
     public Page<Movie> findAllByPlatformIdentifier(UUID platformIdentifier, Pageable pageable) {
         Page<MoviesPlatforms> data = moviesPlatformsRepository.findAllByPlatformIdentifier(platformIdentifier, pageable);
@@ -60,16 +61,19 @@ public class MovieSearchServiceImpl implements MovieSearchService {
         return new PageImpl<>(movies);
     }
 
+    @Cacheable(cacheNames = "allMoviesByLanguage")
     @Override
     public Page<Movie> findAllByLanguageIdentifier(UUID languageIdentifier, Pageable pageable) {
         return movieRepository.findAllByLanguageIdentifier(languageIdentifier, pageable);
     }
 
+    @Cacheable(cacheNames = "allMoviesByCertificate")
     @Override
     public Page<Movie> findAllByCertificateIdentifier(UUID certificateIdentifier, Pageable pageable) {
         return movieRepository.findAllByCertificateIdentifier(certificateIdentifier, pageable);
     }
 
+    @Cacheable(cacheNames = "allMoviesByTitle")
     @Override
     public Page<Movie> findAllByTitle(String title, Pageable pageable) {
         return movieRepository.findAllByTitle(title, pageable);
