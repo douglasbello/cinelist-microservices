@@ -7,6 +7,7 @@ import com.cinelist.ms.catalog.database.repositories.MoviesPlatformsRepository;
 import com.cinelist.ms.catalog.dtos.movies.MovieRequest;
 import com.cinelist.ms.catalog.services.search.*;
 import com.cinelist.ms.catalog.services.update.MovieUpdateService;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,6 +37,9 @@ public class MovieUpdateServiceImpl implements MovieUpdateService {
         this.movieRepository = movieRepository;
     }
 
+    @CacheEvict(cacheNames = {
+            "allMovies", "upcomingMovies", "latestMovies"
+    }, allEntries = true)
     @Override
     public void addGenreToMovie(UUID genreIdentifier, UUID movieIdentifier) {
         Genre genre = genreSearchService.findByIdentifier(genreIdentifier);
@@ -47,6 +51,9 @@ public class MovieUpdateServiceImpl implements MovieUpdateService {
         moviesGenresRepository.save(moviesGenres);
     }
 
+    @CacheEvict(cacheNames = {
+            "allMovies", "upcomingMovies", "latestMovies"
+    }, allEntries = true)
     @Override
     public void addPlatformToMovie(UUID platformIdentifier, UUID movieIdentifier) {
         Platform platform = platformSearchService.findByIdentifier(platformIdentifier);
@@ -58,6 +65,9 @@ public class MovieUpdateServiceImpl implements MovieUpdateService {
         moviesPlatformsRepository.save(moviesPlatforms);
     }
 
+    @CacheEvict(cacheNames = {
+            "allMovies", "upcomingMovies", "latestMovies"
+    }, allEntries = true)
     @Transactional
     @Override
     public void updateInfo(UUID movieIdentifier, MovieRequest request) {

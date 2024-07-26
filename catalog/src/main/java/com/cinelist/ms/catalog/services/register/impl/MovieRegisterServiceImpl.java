@@ -8,6 +8,8 @@ import com.cinelist.ms.catalog.services.register.MovieRegisterService;
 import com.cinelist.ms.catalog.services.search.CertificateSearchService;
 import com.cinelist.ms.catalog.services.search.LanguageSearchService;
 import com.cinelist.ms.catalog.services.update.MovieUpdateService;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +30,9 @@ public class MovieRegisterServiceImpl implements MovieRegisterService {
         this.languageSearchService = languageSearchService;
     }
 
+    @CacheEvict(cacheNames = {
+            "allMovies", "upcomingMovies", "latestMovies"
+    }, allEntries = true)
     @Transactional
     public Movie register(MovieRequest request) {
         if (request.certificateIdentifier() != null)

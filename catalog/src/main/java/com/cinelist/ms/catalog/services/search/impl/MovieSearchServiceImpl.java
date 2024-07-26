@@ -8,6 +8,7 @@ import com.cinelist.ms.catalog.database.repositories.MoviesGenresRepository;
 import com.cinelist.ms.catalog.database.repositories.MoviesPlatformsRepository;
 import com.cinelist.ms.catalog.handlers.exceptions.ResourceNotFoundException;
 import com.cinelist.ms.catalog.services.search.MovieSearchService;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -30,7 +31,7 @@ public class MovieSearchServiceImpl implements MovieSearchService {
         this.moviesPlatformsRepository = moviesPlatformsRepository;
     }
 
-    @Override
+    @Cacheable("allMovies")
     public Page<Movie> findAll(Pageable pageable) {
         return movieRepository.findAll(pageable);
     }
@@ -74,11 +75,13 @@ public class MovieSearchServiceImpl implements MovieSearchService {
         return movieRepository.findAllByTitle(title, pageable);
     }
 
+    @Cacheable(cacheNames = "upcomingMovies")
     @Override
     public Page<Movie> upcoming(Pageable pageable) {
         return movieRepository.upcoming(pageable);
     }
 
+    @Cacheable(cacheNames = "latestMovies")
     @Override
     public Page<Movie> latest(Pageable pageable) {
         return movieRepository.latest(pageable);
