@@ -1,6 +1,8 @@
 package com.cinelist.ms.catalog.database.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
@@ -15,6 +17,8 @@ public class Certificate {
     @Column(name = "identifier", length = 36, columnDefinition = "UUID")
     private UUID identifier;
     @Column(name = "age", length = 20)
+    @NotNull(message = "Age cannot be null.")
+    @NotBlank(message = "Age cannot be blank.")
     private String age;
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)

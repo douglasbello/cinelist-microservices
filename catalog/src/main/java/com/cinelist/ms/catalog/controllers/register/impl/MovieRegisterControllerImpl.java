@@ -4,6 +4,7 @@ import com.cinelist.ms.catalog.controllers.register.MovieRegisterController;
 import com.cinelist.ms.catalog.database.models.Movie;
 import com.cinelist.ms.catalog.dtos.movies.MovieRequest;
 import com.cinelist.ms.catalog.services.register.MovieRegisterService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +25,7 @@ public class MovieRegisterControllerImpl implements MovieRegisterController {
     }
 
     @PostMapping
-    public ResponseEntity<Movie> register(@RequestBody MovieRequest request) {
+    public ResponseEntity<Movie> register(@Valid @RequestBody MovieRequest request) {
         Movie created = movieRegisterService.register(request);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{identifier}").buildAndExpand(created.getIdentifier()).toUri();
 

@@ -1,6 +1,8 @@
 package com.cinelist.ms.catalog.database.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
@@ -15,6 +17,8 @@ public class Genre {
     @Column(name = "identifier", length = 36, columnDefinition = "UUID")
     private UUID identifier;
     @Column(name = "name", length = 40)
+    @NotNull(message = "Name cannot be null.")
+    @NotBlank(message = "Name cannot be blank.")
     private String name;
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)

@@ -1,4 +1,7 @@
 package com.cinelist.ms.catalog.dtos.platforms;
 
-public record PlatformRequest(String name) {
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
+public record PlatformRequest(@NotNull(message = "Name cannot be null.") @NotBlank(message = "Name cannot be blank.") String name) {
 }

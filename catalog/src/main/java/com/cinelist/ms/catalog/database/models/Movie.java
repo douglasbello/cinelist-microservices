@@ -1,6 +1,8 @@
 package com.cinelist.ms.catalog.database.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -11,8 +13,10 @@ import java.util.UUID;
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "identifier", columnDefinition = "UUID")
+    @Column(name = "identifier", columnDefinition = "UUID", length = 36)
     private UUID identifier;
+    @NotNull(message = "Title cannot be null.")
+    @NotBlank(message = "Title cannot be blank.")
     @Column(name = "title", length = 80)
     private String title;
     @Column(name = "short_description", length = 255)
