@@ -30,7 +30,6 @@ public class MovieRegisterServiceImpl implements MovieRegisterService {
 
     @Transactional
     public Movie register(MovieRequest request) {
-
         if (request.certificateIdentifier() != null)
             certificateSearchService.findByIdentifier(request.certificateIdentifier());
 
