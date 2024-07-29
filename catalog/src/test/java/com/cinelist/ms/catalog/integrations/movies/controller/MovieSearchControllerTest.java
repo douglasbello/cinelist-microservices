@@ -43,7 +43,7 @@ public class MovieSearchControllerTest {
     void givenIdentifier_shouldReturnMovie() {
         UUID identifier = interstellar.getIdentifier();
 
-        when(movieSearchService.findByIdentifier(interstellar.getIdentifier())).thenReturn(interstellar);
+        when(movieSearchService.details(interstellar.getIdentifier())).thenReturn(interstellar);
 
         ResponseEntity<Movie> response = movieSearchController.findByIdentifier(identifier);
 
@@ -54,7 +54,7 @@ public class MovieSearchControllerTest {
     void givenNonExistingIdentifier_shouldThrowResourceNotFoundException() {
         UUID identifier = UUID.randomUUID();
 
-        when(movieSearchService.findByIdentifier(identifier)).thenThrow(new ResourceNotFoundException("Movie", identifier.toString()));
+        when(movieSearchService.details(identifier)).thenThrow(new ResourceNotFoundException("Movie", identifier.toString()));
 
         assertThrows(ResourceNotFoundException.class, () -> movieSearchController.findByIdentifier(identifier));
     }

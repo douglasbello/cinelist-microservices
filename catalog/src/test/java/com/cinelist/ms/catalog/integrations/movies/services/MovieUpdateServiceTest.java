@@ -4,7 +4,6 @@ import com.cinelist.ms.catalog.database.models.*;
 import com.cinelist.ms.catalog.database.repositories.MoviesGenresRepository;
 import com.cinelist.ms.catalog.database.repositories.MoviesPlatformsRepository;
 import com.cinelist.ms.catalog.services.search.GenreSearchService;
-import com.cinelist.ms.catalog.services.search.LanguageSearchService;
 import com.cinelist.ms.catalog.services.search.MovieSearchService;
 import com.cinelist.ms.catalog.services.search.PlatformSearchService;
 import com.cinelist.ms.catalog.services.update.impl.MovieUpdateServiceImpl;
@@ -53,12 +52,12 @@ public class MovieUpdateServiceTest {
         Movie movie = new Movie.MovieBuilder().build();
 
         when(genreSearchService.findByIdentifier(genreId)).thenReturn(genre);
-        when(movieSearchService.findByIdentifier(movieId)).thenReturn(movie);
+        when(movieSearchService.details(movieId)).thenReturn(movie);
 
         movieUpdateService.addGenreToMovie(genreId, movieId);
 
         verify(genreSearchService).findByIdentifier(genreId);
-        verify(movieSearchService).findByIdentifier(movieId);
+        verify(movieSearchService).details(movieId);
         verify(moviesGenresRepository).save(any(MoviesGenres.class));
     }
 
@@ -70,12 +69,12 @@ public class MovieUpdateServiceTest {
         Movie movie = new Movie.MovieBuilder().build();
 
         when(platformSearchService.findByIdentifier(platformId)).thenReturn(platform);
-        when(movieSearchService.findByIdentifier(movieId)).thenReturn(movie);
+        when(movieSearchService.details(movieId)).thenReturn(movie);
 
         movieUpdateService.addPlatformToMovie(platformId, movieId);
 
         verify(platformSearchService).findByIdentifier(platformId);
-        verify(movieSearchService).findByIdentifier(movieId);
+        verify(movieSearchService).details(movieId);
         verify(moviesPlatformsRepository).save(any(MoviesPlatforms.class));
     }
 }

@@ -43,7 +43,7 @@ public class MovieUpdateServiceImpl implements MovieUpdateService {
     @Override
     public void addGenreToMovie(UUID genreIdentifier, UUID movieIdentifier) {
         Genre genre = genreSearchService.findByIdentifier(genreIdentifier);
-        Movie movie = movieSearchService.findByIdentifier(movieIdentifier);
+        Movie movie = movieSearchService.details(movieIdentifier);
 
         MoviesGenresId moviesGenresId = new MoviesGenresId(movieIdentifier, genreIdentifier);
         MoviesGenres moviesGenres = new MoviesGenres(moviesGenresId);
@@ -57,7 +57,7 @@ public class MovieUpdateServiceImpl implements MovieUpdateService {
     @Override
     public void addPlatformToMovie(UUID platformIdentifier, UUID movieIdentifier) {
         Platform platform = platformSearchService.findByIdentifier(platformIdentifier);
-        Movie movie = movieSearchService.findByIdentifier(movieIdentifier);
+        Movie movie = movieSearchService.details(movieIdentifier);
 
         MoviesPlatformsId moviesPlatformsId = new MoviesPlatformsId(movieIdentifier, platformIdentifier);
         MoviesPlatforms moviesPlatforms = new MoviesPlatforms(moviesPlatformsId);
@@ -71,7 +71,7 @@ public class MovieUpdateServiceImpl implements MovieUpdateService {
     @Transactional
     @Override
     public void updateInfo(UUID movieIdentifier, MovieRequest request) {
-        Movie old = movieSearchService.findByIdentifier(movieIdentifier);
+        Movie old = movieSearchService.details(movieIdentifier);
 
         updateData(old, request);
 
