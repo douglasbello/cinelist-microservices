@@ -15,7 +15,23 @@ CREATE TABLE tb_cast(
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP DEFAULT NULL,
 	FOREIGN KEY (occupation_identifier) REFERENCES tb_occupations (identifier)
-)
+);
+
+CREATE TABLE tb_cast_show(
+	cast_identifier UUID NOT NULL,
+	show_identifier UUID NOT NULL,
+	created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+	updated_at TIMESTAMP DEFAULT NULL,
+	PRIMARY KEY (cast_identifier, show_identifier)
+);
+
+CREATE TABLE tb_cast_movie(
+	cast_identifier UUID NOT NULL,
+	movie_identifier UUID NOT NULL,
+	created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+	updated_at TIMESTAMP DEFAULT NULL,
+	PRIMARY KEY (cast_identifier, movie_identifier)
+);
 
 CREATE OR REPLACE FUNCTION update_modified_column()
 	RETURNS TRIGGER AS $$
@@ -24,6 +40,10 @@ CREATE OR REPLACE FUNCTION update_modified_column()
 	END;
 $$ language 'plpgsql';
 
-CREATE TRIGGER update_modified_time BEFORE UPDATE ON tb_occupations FOR EACH ROW EXECUTE PROCEDURE update_modified_column()
+CREATE TRIGGER update_modified_time BEFORE UPDATE ON tb_occupations FOR EACH ROW EXECUTE PROCEDURE update_modified_column();
 
-CREATE TRIGGER update_modified_time BEFORE UPDATE ON tb_cast FOR EACH ROW EXECUTE PROCEDURE update_modified_column()
+CREATE TRIGGER update_modified_time BEFORE UPDATE ON tb_cast FOR EACH ROW EXECUTE PROCEDURE update_modified_column();
+	
+CREATE TRIGGER update_modified_time BEFORE UPDATE ON tb_cast_movie FOR EACH ROW EXECUTE PROCEDURE update_modified_column();
+
+CREATE TRIGGER update_modified_time BEFORE UPDATE ON tb_cast_show FOR EACH ROW EXECUTE PROCEDURE update_modified_column();
