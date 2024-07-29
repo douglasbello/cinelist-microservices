@@ -3,39 +3,30 @@ package com.cinelist.ms.actorsdirectors.database.models;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
-@MappedSuperclass
-public abstract class Person {
+@Entity
+@Table(name = "tb_occupations")
+public class Occupation {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "identifier", columnDefinition = "UUID", length = 36)
     private UUID identifier;
-    @Column(name = "first_name", length = 70)
-    private String firstName;
-    @Column(name = "last_name", length = 255)
-    private String lastName;
-    @Column(name = "birth_date")
-    private LocalDate birthDate;
-    @Column(name = "photoUrl", length = 255)
-    private String photoUrl;
+    @Column(name = "name", length = 255)
+    private String name;
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    public Person() {
+    public Occupation() {
     }
 
-    public Person(String firstName, String lastName, LocalDate birthDate, String photoUrl) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.birthDate = birthDate;
-        this.photoUrl = photoUrl;
+    public Occupation(String name) {
+        this.name = name;
     }
 
     public UUID getIdentifier() {
@@ -46,20 +37,36 @@ public abstract class Person {
         this.identifier = identifier;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Person person = (Person) o;
-        return Objects.equals(identifier, person.identifier);
+        Occupation that = (Occupation) o;
+        return Objects.equals(identifier, that.identifier);
     }
 
     @Override
@@ -69,12 +76,9 @@ public abstract class Person {
 
     @Override
     public String toString() {
-        return "Person{" +
+        return "Occupation{" +
                 "identifier=" + identifier +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", birthDate=" + birthDate +
-                ", photoUrl='" + photoUrl + '\'' +
+                ", name='" + name + '\'' +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 '}';
