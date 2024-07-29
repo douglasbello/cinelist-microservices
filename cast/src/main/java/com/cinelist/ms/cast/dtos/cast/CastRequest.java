@@ -1,4 +1,4 @@
-package com.cinelist.ms.actorsdirectors.dtos.cast;
+package com.cinelist.ms.cast.dtos.cast;
 
 import java.time.LocalDate;
 import java.util.UUID;

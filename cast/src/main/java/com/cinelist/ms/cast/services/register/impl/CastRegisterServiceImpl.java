@@ -1,9 +1,9 @@
-package com.cinelist.ms.actorsdirectors.services.register.impl;
+package com.cinelist.ms.cast.services.register.impl;
 
-import com.cinelist.ms.actorsdirectors.database.models.Cast;
-import com.cinelist.ms.actorsdirectors.database.repositories.CastRepository;
-import com.cinelist.ms.actorsdirectors.dtos.cast.CastRequest;
-import com.cinelist.ms.actorsdirectors.services.register.CastRegisterService;
+import com.cinelist.ms.cast.database.models.Cast;
+import com.cinelist.ms.cast.database.repositories.CastRepository;
+import com.cinelist.ms.cast.dtos.cast.CastRequest;
+import com.cinelist.ms.cast.services.register.CastRegisterService;
 import org.springframework.stereotype.Service;
 
 @Service

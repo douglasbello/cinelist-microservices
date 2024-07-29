@@ -1,6 +1,6 @@
-package com.cinelist.ms.actorsdirectors.database.repositories;
+package com.cinelist.ms.cast.database.repositories;
 
-import com.cinelist.ms.actorsdirectors.database.models.Cast;
+import com.cinelist.ms.cast.database.models.Cast;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;

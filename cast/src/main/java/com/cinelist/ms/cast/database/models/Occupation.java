@@ -1,4 +1,4 @@
-package com.cinelist.ms.actorsdirectors.database.models;
+package com.cinelist.ms.cast.database.models;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;

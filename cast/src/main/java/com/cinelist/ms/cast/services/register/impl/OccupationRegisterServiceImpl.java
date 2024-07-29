@@ -1,9 +1,9 @@
-package com.cinelist.ms.actorsdirectors.services.register.impl;
+package com.cinelist.ms.cast.services.register.impl;
 
-import com.cinelist.ms.actorsdirectors.database.models.Occupation;
-import com.cinelist.ms.actorsdirectors.database.repositories.OccupationRepository;
-import com.cinelist.ms.actorsdirectors.dtos.occupations.OccupationRequest;
-import com.cinelist.ms.actorsdirectors.services.register.OccupationRegisterService;
+import com.cinelist.ms.cast.database.models.Occupation;
+import com.cinelist.ms.cast.database.repositories.OccupationRepository;
+import com.cinelist.ms.cast.dtos.occupations.OccupationRequest;
+import com.cinelist.ms.cast.services.register.OccupationRegisterService;
 import org.springframework.stereotype.Service;
 
 @Service

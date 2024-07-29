@@ -1,4 +1,4 @@
-package com.cinelist.ms.actorsdirectors;
+package com.cinelist.ms.cast;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
