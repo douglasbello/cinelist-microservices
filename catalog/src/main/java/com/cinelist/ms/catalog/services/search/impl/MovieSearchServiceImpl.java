@@ -37,7 +37,7 @@ public class MovieSearchServiceImpl implements MovieSearchService {
     }
 
     @Override
-    public Movie findByIdentifier(UUID identifier) {
+    public Movie details(UUID identifier) {
         return movieRepository.findById(identifier).orElseThrow(() -> new ResourceNotFoundException("Movie", identifier.toString()));
     }
 
@@ -46,7 +46,7 @@ public class MovieSearchServiceImpl implements MovieSearchService {
     public Page<Movie> findAllByGenreIdentifier(UUID genreIdentifier, Pageable pageable) {
         Page<MoviesGenres> data = moviesGenresRepository.findAllByGenreIdentifier(genreIdentifier, pageable);
 
-        List<Movie> movies = data.stream().map(moviesGenres -> findByIdentifier(moviesGenres.getMovieIdentifier())).toList();
+        List<Movie> movies = data.stream().map(moviesGenres -> details(moviesGenres.getMovieIdentifier())).toList();
 
         return new PageImpl<>(movies);
     }
@@ -56,7 +56,7 @@ public class MovieSearchServiceImpl implements MovieSearchService {
     public Page<Movie> findAllByPlatformIdentifier(UUID platformIdentifier, Pageable pageable) {
         Page<MoviesPlatforms> data = moviesPlatformsRepository.findAllByPlatformIdentifier(platformIdentifier, pageable);
 
-        List<Movie> movies = data.stream().map(moviesPlatforms -> findByIdentifier(moviesPlatforms.getMovieIdentifier())).toList();
+        List<Movie> movies = data.stream().map(moviesPlatforms -> details(moviesPlatforms.getMovieIdentifier())).toList();
 
         return new PageImpl<>(movies);
     }

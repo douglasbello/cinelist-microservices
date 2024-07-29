@@ -27,7 +27,7 @@ public class MovieSearchControllerImpl implements MovieSearchController {
 
     @GetMapping("/{identifier}")
     public ResponseEntity<Movie> findByIdentifier(@PathVariable UUID identifier) {
-        return ResponseEntity.ok().body(movieSearchService.findByIdentifier(identifier));
+        return ResponseEntity.ok().body(movieSearchService.details(identifier));
     }
 
     @GetMapping("/genres/{identifier}")

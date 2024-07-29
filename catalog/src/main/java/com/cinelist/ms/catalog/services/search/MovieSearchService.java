@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.UUID;
 
 public interface MovieSearchService {
-    Movie findByIdentifier(UUID identifier);
+    Movie details(UUID identifier);
     Page<Movie> findAll(Pageable pageable);
     Page<Movie> findAllByGenreIdentifier(UUID genreIdentifier, Pageable pageable);
     Page<Movie> findAllByPlatformIdentifier(UUID platformIdentifier, Pageable pageable);
