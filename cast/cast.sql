@@ -11,7 +11,6 @@ CREATE TABLE tb_cast(
 	last_name VARCHAR(255) NOT NULL,
 	birth_date DATE,
 	photo_url VARCHAR(255),
-	occupation_identifier UUID NOT NULL,
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP DEFAULT NULL,
 	FOREIGN KEY (occupation_identifier) REFERENCES tb_occupations (identifier)
@@ -33,6 +32,14 @@ CREATE TABLE tb_cast_movie(
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP DEFAULT NULL,
 	PRIMARY KEY (cast_identifier, movie_identifier)
+);
+
+CREATE TABLE tb_cast_occupation(
+	cast_identifier UUID NOT NULL,
+	occupation_identifier UUID NOT NULL,
+	created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+	updated_at TIMESTAMP DEFAULT NULL,
+	PRIMARY KEY (cast_identifier, occupation_identifier)
 );
 
 CREATE OR REPLACE FUNCTION update_modified_column()
