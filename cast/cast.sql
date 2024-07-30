@@ -20,6 +20,7 @@ CREATE TABLE tb_cast(
 CREATE TABLE tb_cast_show(
 	cast_identifier UUID NOT NULL,
 	show_identifier UUID NOT NULL,
+	character VARCHAR(80),
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP DEFAULT NULL,
 	PRIMARY KEY (cast_identifier, show_identifier)
@@ -28,6 +29,7 @@ CREATE TABLE tb_cast_show(
 CREATE TABLE tb_cast_movie(
 	cast_identifier UUID NOT NULL,
 	movie_identifier UUID NOT NULL,
+	character VARCHAR(80),
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP DEFAULT NULL,
 	PRIMARY KEY (cast_identifier, movie_identifier)

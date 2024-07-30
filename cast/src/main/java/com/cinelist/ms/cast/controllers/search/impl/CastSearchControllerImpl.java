@@ -31,9 +31,4 @@ public class CastSearchControllerImpl implements CastSearchController {
     public ResponseEntity<Page<Cast>> findByName(@PathVariable String name, Pageable pageable) {
         return ResponseEntity.ok().body(castSearchService.findByName(name, pageable));
     }
-
-    @GetMapping("/occupation/{occupationIdentifier}")
-    public ResponseEntity<Page<Cast>> findByOccupationIdentifier(@PathVariable UUID occupationIdentifier, Pageable pageable) {
-        return ResponseEntity.ok().body(castSearchService.findAllByOccupationIdentifier(occupationIdentifier, pageable));
-    }
 }

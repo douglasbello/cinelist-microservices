@@ -27,9 +27,4 @@ public class CastSearchServiceImpl implements CastSearchService {
     public Page<Cast> findByName(String name, Pageable pageable) {
         return castRepository.findByName(name, pageable);
     }
-
-    @Override
-    public Page<Cast> findAllByOccupationIdentifier(UUID occupationIdentifier, Pageable pageable) {
-        return castRepository.findAllByOccupationIdentifier(occupationIdentifier, pageable);
-    }
 }

@@ -9,5 +9,4 @@ import java.util.UUID;
 public interface CastSearchService {
     Cast findByIdentifier(UUID identifier);
     Page<Cast> findByName(String name, Pageable pageable);
-    Page<Cast> findAllByOccupationIdentifier(UUID occupationIdentifier, Pageable pageable);
 }

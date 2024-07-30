@@ -23,8 +23,6 @@ public class Cast {
     private LocalDate birthDate;
     @Column(name = "photoUrl", length = 255)
     private String photoUrl;
-    @Column(name = "occupationIdentifier", length = 36)
-    private UUID occupationIdentifier;
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
@@ -34,12 +32,11 @@ public class Cast {
     public Cast() {
     }
 
-    public Cast(String firstName, String lastName, LocalDate birthDate, String photoUrl, UUID occupationIdentifier) {
+    public Cast(String firstName, String lastName, LocalDate birthDate, String photoUrl) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
         this.photoUrl = photoUrl;
-        this.occupationIdentifier = occupationIdentifier;
     }
 
     public UUID getIdentifier() {
@@ -90,14 +87,6 @@ public class Cast {
         this.photoUrl = photoUrl;
     }
 
-    public UUID getOccupationIdentifier() {
-        return occupationIdentifier;
-    }
-
-    public void setOccupationIdentifier(UUID occupationIdentifier) {
-        this.occupationIdentifier = occupationIdentifier;
-    }
-
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
@@ -127,7 +116,6 @@ public class Cast {
                 ", lastName='" + lastName + '\'' +
                 ", birthDate=" + birthDate +
                 ", photoUrl='" + photoUrl + '\'' +
-                ", occupationIdentifier=" + occupationIdentifier +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 '}';

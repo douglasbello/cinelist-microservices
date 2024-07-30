@@ -10,5 +10,4 @@ import java.util.UUID;
 public interface CastSearchController {
     ResponseEntity<Cast> findByIdentifier(UUID identifier);
     ResponseEntity<Page<Cast>> findByName(String name, Pageable pageable);
-    ResponseEntity<Page<Cast>> findByOccupationIdentifier(UUID occupationIdentifier, Pageable pageable);
 }
