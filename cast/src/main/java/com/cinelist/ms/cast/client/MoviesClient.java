@@ -1,5 +1,6 @@
 package com.cinelist.ms.cast.client;
 
+import com.cinelist.ms.cast.config.FeignClientConfiguration;
 import com.cinelist.ms.cast.dtos.client.MovieResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.UUID;
 
-@FeignClient(value = "moviesclient", url = "http://localhost:8082")
+@FeignClient(value = "moviesclient", url = "http://localhost:8082", configuration = FeignClientConfiguration.class)
 public interface MoviesClient {
     @RequestMapping(method = RequestMethod.GET, value = "/movies/{identifier}")
     ResponseEntity<MovieResponse> findByIdentifier(@PathVariable UUID identifier);

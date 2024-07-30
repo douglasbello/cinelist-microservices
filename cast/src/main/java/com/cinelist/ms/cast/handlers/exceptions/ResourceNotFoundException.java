@@ -10,4 +10,8 @@ public class ResourceNotFoundException extends RuntimeException {
     public ResourceNotFoundException(String resourceName, UUID identifier) {
         super(resourceName + " not found with identifier: " + identifier);
     }
+
+    public ResourceNotFoundException(String message) {
+        super(message);
+    }
 }

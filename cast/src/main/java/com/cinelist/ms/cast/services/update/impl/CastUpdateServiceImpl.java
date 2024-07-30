@@ -27,6 +27,7 @@ public class CastUpdateServiceImpl implements CastUpdateService {
     @Override
     public void addMovieToCast(UUID castIdentifier, UUID movieIdentifier) {
         ResponseEntity<MovieResponse> movieExists = moviesClient.findByIdentifier(movieIdentifier);
+        System.out.println(movieExists);
 
         if (movieExists.getStatusCode().value() == 404)
             throw new ResourceNotFoundException("Movie", movieIdentifier);
