@@ -6,7 +6,7 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
 
 @SpringBootApplication
-@EnableSpringDataWebSupport(pageSerializationMode = EnableSpringDataWebSupport.PageSerializationMode.VIA_DTO)
+//@EnableSpringDataWebSupport(pageSerializationMode = EnableSpringDataWebSupport.PageSerializationMode.VIA_DTO)
 @EnableCaching
 public class CatalogApplication {
 	public static void main(String[] args) {
