@@ -20,8 +20,8 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Object> handleResourceNotFoundException(ResourceNotFoundException e, WebRequest request) {
         CustomErrorResponse error = new CustomErrorResponse();
         error.setError(e.getMessage());
-        error.setStatus(HttpStatus.NOT_FOUND.value());
-        error.setCode("404");
+        error.setStatus(HttpStatus.NOT_FOUND.getReasonPhrase());
+        error.setCode(HttpStatus.NOT_FOUND.value());
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
@@ -38,8 +38,8 @@ public class GlobalExceptionHandler {
 
         CustomErrorResponse error = new CustomErrorResponse();
         error.setError(errorList.get(0));
-        error.setStatus(HttpStatus.BAD_REQUEST.value());
-        error.setCode("400");
+        error.setStatus(HttpStatus.BAD_REQUEST.getReasonPhrase());
+        error.setCode(HttpStatus.BAD_REQUEST.value());
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }

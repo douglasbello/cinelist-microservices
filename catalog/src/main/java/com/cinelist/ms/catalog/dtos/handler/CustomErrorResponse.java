@@ -4,24 +4,24 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CustomErrorResponse {
-    private int status;
     private String error;
-    private String code;
+    private String status;
+    private int code;
 
     public CustomErrorResponse() {
     }
 
-    public CustomErrorResponse(int status, String error, String code) {
+    public CustomErrorResponse(String status, String error, int code) {
         this.status = status;
         this.error = error;
         this.code = code;
     }
 
-    public int getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -33,11 +33,11 @@ public class CustomErrorResponse {
         this.error = message;
     }
 
-    public String getCode() {
+    public int getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(int code) {
         this.code = code;
     }
 }
