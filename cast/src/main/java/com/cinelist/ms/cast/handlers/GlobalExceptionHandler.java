@@ -14,8 +14,8 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Object> handleResourceNotFoundException(ResourceNotFoundException ex) {
         CustomErrorResponse error = new CustomErrorResponse();
         error.setError(ex.getMessage());
-        error.setStatus(HttpStatus.NOT_FOUND.value());
-        error.setCode("404");
+        error.setStatus(HttpStatus.NOT_FOUND.getReasonPhrase());
+        error.setCode(HttpStatus.NOT_FOUND.value());
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
@@ -23,6 +23,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<CustomErrorResponse> handleArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new CustomErrorResponse("You provided the wrong data type in the field: " + ex.getPropertyName(),
-                                                                    HttpStatus.BAD_REQUEST.value(), "400"));
+                                                                    HttpStatus.BAD_REQUEST.getReasonPhrase(), HttpStatus.BAD_REQUEST.value()));
     }
 }
