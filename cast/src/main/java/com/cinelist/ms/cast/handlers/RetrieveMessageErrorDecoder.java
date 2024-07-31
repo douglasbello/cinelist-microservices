@@ -22,13 +22,11 @@ public class RetrieveMessageErrorDecoder implements ErrorDecoder {
         } catch (IOException ex) {
             return new Exception(ex.getMessage());
         }
-        switch (response.status()) {
-            case 400:
-                return new BadRequestException(message.getError());
-            case 404:
-                return new ResourceNotFoundException(message.getError());
-            default:
-                return errorDecoder.decode(methodKey, response);
-        }
+
+        return switch (response.status()) {
+            case 400 -> new BadRequestException(message.getError());
+            case 404 -> new ResourceNotFoundException(message.getError());
+            default -> errorDecoder.decode(methodKey, response);
+        };
     }
 }
