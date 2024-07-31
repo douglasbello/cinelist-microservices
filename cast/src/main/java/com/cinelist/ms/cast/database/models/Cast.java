@@ -1,6 +1,8 @@
 package com.cinelist.ms.cast.database.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
@@ -15,10 +17,13 @@ public class Cast {
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "identifier", columnDefinition = "UUID", length = 36)
     private UUID identifier;
+    @NotEmpty(message = "First name cannot be null or blank.")
     @Column(name = "first_name", length = 70)
     private String firstName;
+    @NotEmpty(message = "Last name cannot be null or blank.")
     @Column(name = "last_name", length = 255)
     private String lastName;
+    @NotNull(message = "Birth date cannot be null.")
     @Column(name = "birth_date")
     private LocalDate birthDate;
     @Column(name = "photoUrl", length = 255)

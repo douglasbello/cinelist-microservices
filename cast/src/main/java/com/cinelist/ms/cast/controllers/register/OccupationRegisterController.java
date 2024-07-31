@@ -6,8 +6,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 
+@Validated
 @Tag(name = "Occupation Register Controller")
 public interface OccupationRegisterController {
     @Operation(summary = "Register a occupation.")
@@ -15,5 +18,5 @@ public interface OccupationRegisterController {
             @ApiResponse(responseCode = "201", description = "Occupation created successfully."),
             @ApiResponse(responseCode = "400", description = "Wrong data type provided in specific field.")
     })
-    ResponseEntity<Occupation> register(OccupationRequest request);
+    ResponseEntity<Occupation> register(@Valid OccupationRequest request);
 }

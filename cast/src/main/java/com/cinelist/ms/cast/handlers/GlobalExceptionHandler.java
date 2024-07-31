@@ -4,9 +4,13 @@ import com.cinelist.ms.cast.dtos.handler.CustomErrorResponse;
 import com.cinelist.ms.cast.handlers.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -22,7 +26,18 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<CustomErrorResponse> handleArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new CustomErrorResponse("You provided the wrong data type in the field: " + ex.getPropertyName(),
+        return ResponseEntity.badRequest().body(new CustomErrorResponse("You provided the wrong data type in the field: " + ex.getPropertyName(),
                                                                     HttpStatus.BAD_REQUEST.getReasonPhrase(), HttpStatus.BAD_REQUEST.value()));
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<CustomErrorResponse> handleValidationException(MethodArgumentNotValidException ex) {
+        List<String> errorList = new ArrayList<>();
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String errorMessage = error.getDefaultMessage();
+            errorList.add(errorMessage);
+        });
+
+        return ResponseEntity.badRequest().body(new CustomErrorResponse(errorList.get(0), HttpStatus.BAD_REQUEST.getReasonPhrase(), HttpStatus.BAD_REQUEST.value()));
     }
 }

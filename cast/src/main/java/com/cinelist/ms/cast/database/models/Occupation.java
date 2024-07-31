@@ -1,6 +1,8 @@
 package com.cinelist.ms.cast.database.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
@@ -14,6 +16,7 @@ public class Occupation {
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "identifier", columnDefinition = "UUID", length = 36)
     private UUID identifier;
+    @NotEmpty(message = "Name cannot be null or blank.")
     @Column(name = "name", length = 255)
     private String name;
     @CreationTimestamp

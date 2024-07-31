@@ -1,4 +1,6 @@
 package com.cinelist.ms.cast.dtos.occupations;
 
-public record OccupationRequest(String name) {
+import jakarta.validation.constraints.NotEmpty;
+
+public record OccupationRequest(@NotEmpty(message = "Name cannot be null or blank.") String name) {
 }
