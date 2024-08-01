@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -34,7 +35,7 @@ public class UserServiceImpl implements UserService {
         if (user.isEmpty())
             user = userRepository.findByEmail(targetUserIdentifier);
         if (user.isEmpty())
-            user = userRepository.findByIdentifier(targetUserIdentifier);
+            user = userRepository.findByIdentifier(UUID.fromString(targetUserIdentifier));
         if (user.isEmpty())
             throw new UserNotFoundException();
 

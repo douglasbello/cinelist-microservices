@@ -7,6 +7,7 @@ import org.springframework.data.annotation.CreatedDate;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Table(name = "tb_users")
@@ -14,14 +15,14 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "identifier", length = 36)
-    private String identifier;
+    private UUID identifier;
     @Column(name = "first_name", length = 255)
     private String firstName;
     @Column(name = "last_name", length = 255)
     private String lastName;
-    @Column(name = "username", length = 20)
+    @Column(name = "username", length = 20, unique = true)
     private String username;
-    @Column(name = "email", length = 255)
+    @Column(name = "email", length = 255, unique = true)
     private String email;
     @Column(name = "password", length = 255)
     private String password;
@@ -54,11 +55,11 @@ public class User {
         this.birthDate = builder.birthDate;
     }
 
-    public String getIdentifier() {
+    public UUID getIdentifier() {
         return identifier;
     }
 
-    public void setIdentifier(String identifier) {
+    public void setIdentifier(UUID identifier) {
         this.identifier = identifier;
     }
 

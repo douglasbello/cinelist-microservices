@@ -1,6 +1,5 @@
 CREATE TABLE tb_users(
-    pk SERIAL NOT NULL PRIMARY KEY,
-    identifier UUID NOT NULL,
+    identifier UUID NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
     first_name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255) NOT NULL,
     username VARCHAR(20) NOT NULL UNIQUE,
@@ -12,11 +11,7 @@ CREATE TABLE tb_users(
     birth_date DATE NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT NULL
-)
-
-SELECT * FROM tb_users;
-
-DELETE FROM tb_users;
+);
 
 CREATE OR REPLACE FUNCTION update_modified_column()
 	RETURNS TRIGGER AS $$
