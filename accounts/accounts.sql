@@ -16,8 +16,8 @@ CREATE TABLE tb_users(
 CREATE TABLE tb_users_watchlist_movies(
 	user_identifier UUID NOT NULL,
 	movie_identifier UUID NOT NULL,
-	created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
 	watched boolean,
+	created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP DEFAULT NULL,
 	PRIMARY KEY (user_identifier, movie_identifier)
 );
