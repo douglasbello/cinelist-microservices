@@ -11,21 +11,21 @@ import org.springframework.stereotype.Service
 
 @Service
 class UserRegisterServiceImpl(
-    val userRepository: UserRepository,
+    private val userRepository: UserRepository,
 ) : UserRegisterService {
 
-    val passwordEncoder: PasswordEncoder = BCryptPasswordEncoder()
+    private val passwordEncoder: PasswordEncoder = BCryptPasswordEncoder()
 
     override fun save(userRequest: UserRequest): User {
         val usernameAlreadyExists = userRepository.findByUsername(userRequest.username)
-        if (!usernameAlreadyExists.isEmpty)
+        if (usernameAlreadyExists.isPresent)
             throw UniqueConstraintException("Username already in use.")
 
         val emailAlreadyExists = userRepository.findByEmail(userRequest.email)
-        if (!emailAlreadyExists.isEmpty)
+        if (emailAlreadyExists.isPresent)
             throw UniqueConstraintException("Email already in use.")
 
-        var user: User = userRequest.toEntity()
+        val user: User = userRequest.toEntity()
         user.password = passwordEncoder.encode(user.password)
 
         return userRepository.save(user)

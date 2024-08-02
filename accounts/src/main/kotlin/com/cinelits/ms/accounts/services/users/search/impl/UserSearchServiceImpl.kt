@@ -12,15 +12,24 @@ class UserSearchServiceImpl(
     val userRepository: UserRepository,
 ) : UserSearchService {
 
+    override fun findByIdentifier(identifier: UUID): User {
+        val user: Optional<User> = userRepository.findByIdentifier(identifier)
+
+        if (user.isEmpty)
+            throw ResourceNotFoundException("User not found with identifier: $identifier")
+
+        return user.get()
+    }
+
     override fun findByUsernameOrEmailOrIdentifier(targetIdentifier: String): User {
         var user: Optional<User>
 
         user = userRepository.findByUsername(targetIdentifier)
-        if (user.isEmpty())
+        if (user.isEmpty)
             user = userRepository.findByEmail(targetIdentifier)
-        if (user.isEmpty())
+        if (user.isEmpty)
             user = userRepository.findByIdentifier(UUID.fromString(targetIdentifier))
-        if (user.isEmpty())
+        if (user.isEmpty)
             throw ResourceNotFoundException()
 
         return user.get()

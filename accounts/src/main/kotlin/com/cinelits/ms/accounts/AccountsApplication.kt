@@ -7,8 +7,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients
 
 @SpringBootApplication(exclude = [ SecurityAutoConfiguration::class ])
 @EnableFeignClients
-class AccountsktApplication
+class AccountsApplication
 
 fun main(args: Array<String>) {
-    runApplication<AccountsktApplication>(*args)
+    runApplication<AccountsApplication>(*args)
 }
