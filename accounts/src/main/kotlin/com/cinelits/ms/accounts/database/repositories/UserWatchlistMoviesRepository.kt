@@ -10,6 +10,6 @@ import org.springframework.data.repository.query.Param
 import java.util.UUID
 
 interface UserWatchlistMoviesRepository : JpaRepository<UserWatchlistMovies, UserWatchlistMoviesId> {
-    @Query(value = "SELECT w FROM UserWatchlistMovies w WHERE w.id.userIdentifier = :userIdentifier")
-    fun getUserWatchlist(@Param("userIdentifier") userIdentifier: UUID, pageable: Pageable): Page<UserWatchlistMovies>
+    @Query(value = "SELECT w.id.movieIdentifier FROM UserWatchlistMovies w WHERE w.id.userIdentifier = :userIdentifier")
+    fun getUserWatchlist(@Param("userIdentifier") userIdentifier: UUID, pageable: Pageable): Page<UUID>
 }

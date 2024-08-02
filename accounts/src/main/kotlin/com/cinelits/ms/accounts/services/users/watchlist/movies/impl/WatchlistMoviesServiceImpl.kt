@@ -30,12 +30,11 @@ class WatchlistMoviesServiceImpl(
     }
 
     override fun getWatchlist(userIdentifier: UUID, pageable: Pageable): Page<MovieResponse> {
-        val relations = userWatchlistMoviesRepository.getUserWatchlist(userIdentifier, pageable)
+        val relations: Page<UUID> = userWatchlistMoviesRepository.getUserWatchlist(userIdentifier, pageable)
 
-        val movies = relations.content.map { relation ->
-            moviesClient.findByIdentifier(relation.id.movieIdentifier).body
-        }.filterNotNull()
+        val response: List<MovieResponse> =
+            moviesClient.findAllByIdentifier(relations.content, pageable).body?.content ?: emptyList()
 
-        return PageImpl(movies, pageable, relations.totalElements)
+        return PageImpl(response, pageable, relations.totalElements )
     }
 }
