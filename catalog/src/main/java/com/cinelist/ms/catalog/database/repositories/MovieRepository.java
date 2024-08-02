@@ -7,9 +7,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface MovieRepository extends JpaRepository<Movie, UUID> {
+    @Query(value = "SELECT m FROM Movie m WHERE m.identifier IN (:identifiers)")
+    Page<Movie> findAllByIdentifier(@Param("identifiers") List<UUID> identifiers, Pageable pageable);
     Page<Movie> findAllByCertificateIdentifier(UUID certificateIdentifier, Pageable pageable);
     Page<Movie> findAllByLanguageIdentifier(UUID languageIdentifier, Pageable pageable);
     @Query(value = "SELECT m FROM Movie m WHERE LOWER(m.title) LIKE LOWER(CONCAT('%', :title, '%'))")

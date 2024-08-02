@@ -36,6 +36,12 @@ public class MovieSearchServiceImpl implements MovieSearchService {
         return movieRepository.findAll(pageable);
     }
 
+    @Cacheable(cacheNames = "allMoviesByIdentifiers")
+    @Override
+    public Page<Movie> findAllByIdentifier(List<UUID> identifiers, Pageable pageable) {
+        return movieRepository.findAllByIdentifier(identifiers, pageable);
+    }
+
     @Override
     public Movie details(UUID identifier) {
         return movieRepository.findById(identifier).orElseThrow(() -> new ResourceNotFoundException("Movie", identifier.toString()));

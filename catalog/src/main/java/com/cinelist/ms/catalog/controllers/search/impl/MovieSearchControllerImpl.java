@@ -9,6 +9,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -23,6 +24,11 @@ public class MovieSearchControllerImpl implements MovieSearchController {
     @GetMapping
     public ResponseEntity<Page<Movie>> findAll(@PageableDefault(size = 12) Pageable pageable) {
         return ResponseEntity.ok().body(movieSearchService.findAll(pageable));
+    }
+
+    @GetMapping("/all/{identifiers}")
+    public ResponseEntity<Page<Movie>> findAllByIdentifier(@PathVariable List<UUID> identifiers, @PageableDefault(size = 12) Pageable pageable) {
+        return ResponseEntity.ok().body(movieSearchService.findAllByIdentifier(identifiers, pageable));
     }
 
     @GetMapping("/{identifier}")

@@ -5,10 +5,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface MovieSearchController {
     ResponseEntity<Page<Movie>> findAll(Pageable pageable);
+    ResponseEntity<Page<Movie>> findAllByIdentifier(List<UUID> identifiers, Pageable pageable);
     ResponseEntity<Movie> findByIdentifier(UUID identifier);
     ResponseEntity<Page<Movie>> findAllByGenreIdentifier(UUID identifier, Pageable pageable);
     ResponseEntity<Page<Movie>> findAllByPlatformIdentifier(UUID platformIdentifier, Pageable pageable);
