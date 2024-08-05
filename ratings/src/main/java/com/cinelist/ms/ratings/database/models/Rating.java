@@ -1,6 +1,9 @@
 package com.cinelist.ms.ratings.database.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
@@ -14,6 +17,9 @@ public class Rating {
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "identifier", length = 36, columnDefinition = "UUID")
     private UUID identifier;
+    @NotNull(message = "Rate value cannot be null.")
+    @Min(value = 0, message = "Rate value cannot be negative.")
+    @Max(value = 10, message = "Rate value cannot be bigger than 10.")
     @Column(name = "rate")
     private Double rate;
     @CreationTimestamp
