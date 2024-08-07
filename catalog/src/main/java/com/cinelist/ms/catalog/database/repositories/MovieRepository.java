@@ -19,6 +19,6 @@ public interface MovieRepository extends JpaRepository<Movie, UUID> {
     Page<Movie> findAllByTitle(@Param("title") String title, Pageable pageable);
     @Query(value = "SELECT m FROM Movie m WHERE m.releaseDate > CURRENT_DATE")
     Page<Movie> upcoming(Pageable pageable);
-    @Query(value = "SELECT m FROM Movie m WHERE m.releaseDate <= CURRENT_DATE")
+    @Query(value = "SELECT m FROM Movie m ORDER BY m.releaseDate DESC")
     Page<Movie> latest(Pageable pageable);
 }
