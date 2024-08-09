@@ -1,38 +1,35 @@
 package com.cinelist.ms.ratings.services.ratings.register.impl;
 
 import com.cinelist.ms.ratings.client.MoviesClient;
-import com.cinelist.ms.ratings.database.models.MovieRating;
+import com.cinelist.ms.ratings.client.UsersClient;
 import com.cinelist.ms.ratings.database.models.Rating;
-import com.cinelist.ms.ratings.database.repositories.MovieRatingRepository;
 import com.cinelist.ms.ratings.database.repositories.RatingRepository;
 import com.cinelist.ms.ratings.dtos.client.MovieResponse;
+import com.cinelist.ms.ratings.dtos.client.UserResponse;
+import com.cinelist.ms.ratings.dtos.rating.RateRequest;
 import com.cinelist.ms.ratings.services.ratings.register.RatingRegisterService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.UUID;
 
 @Service
 public class RatingRegisterServiceImpl implements RatingRegisterService {
     private final RatingRepository ratingRepository;
     private final MoviesClient moviesClient;
-    private final MovieRatingRepository movieRatingRepository;
+    private final UsersClient usersClient;
 
-    public RatingRegisterServiceImpl(RatingRepository ratingRepository, MoviesClient moviesClient, MovieRatingRepository movieRatingRepository) {
+    public RatingRegisterServiceImpl(RatingRepository ratingRepository, MoviesClient moviesClient, UsersClient usersClient) {
         this.ratingRepository = ratingRepository;
         this.moviesClient = moviesClient;
-        this.movieRatingRepository = movieRatingRepository;
+        this.usersClient = usersClient;
     }
 
     @Transactional
     @Override
-    public void rate(UUID movieIdentifier, Double value) {
-        MovieResponse movieExists = moviesClient.findByIdentifier(movieIdentifier).getBody();
+    public void rate(RateRequest request) {
+        MovieResponse movieExists = moviesClient.findByIdentifier(request.mediaIdentifier()).getBody();
+        UserResponse userExists = usersClient.findByIdentifier(request.userIdentifier()).getBody();
 
-        Rating rate = new Rating(value);
+        Rating rate = new Rating(request.value(), movieExists.identifier(), userExists.identifier());
         rate = ratingRepository.save(rate);
-
-        MovieRating relation = new MovieRating(movieExists.identifier(), rate.getIdentifier());
-        movieRatingRepository.save(relation);
     }
 }

@@ -17,9 +17,9 @@ public class RatingRegisterControllerImpl implements RatingRegisterController {
         this.ratingRegisterService = ratingRegisterService;
     }
 
-    @PostMapping("/movie/{movieIdentifier}")
-    public ResponseEntity<Void> rate(@PathVariable UUID movieIdentifier, @RequestBody RateRequest request) {
-        ratingRegisterService.rate(movieIdentifier, request.value());
+    @PostMapping("/movie")
+    public ResponseEntity<Void> rate(@RequestBody RateRequest request) {
+        ratingRegisterService.rate(request);
 
         return ResponseEntity.noContent().build();
     }

@@ -1,12 +1,12 @@
-package com.cinelist.ms.ratings.database.repositories;
+package com.cinelist.ms.ratings.services.ratings.search;
 
 import com.cinelist.ms.ratings.database.models.Rating;
 import org.springframework.data.domain.Page;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;
 
-public interface RatingRepository extends JpaRepository<Rating, UUID> {
+public interface RatingSearchService {
+    Rating findByIdentifier(UUID identifier);
     Page<Rating> findByMediaIdentifier(UUID mediaIdentifier);
     Page<Rating> findByUserIdentifier(UUID userIdentifier);
 }

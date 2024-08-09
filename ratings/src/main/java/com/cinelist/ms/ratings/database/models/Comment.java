@@ -1,9 +1,6 @@
 package com.cinelist.ms.ratings.database.models;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
@@ -11,34 +8,28 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Entity
-@Table(name = "tb_ratings")
-public class Rating {
+@Table(name = "tb_comments")
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "identifier", length = 36, columnDefinition = "UUID")
+    @Column(name = "identifier")
     private UUID identifier;
-    @NotNull(message = "Rate value cannot be null.")
-    @Min(value = 0, message = "Rate value cannot be negative.")
-    @Max(value = 10, message = "Rate value cannot be bigger than 10.")
-    @Column(name = "rate")
-    private Double rate;
-    @Column(name = "media_identifier", length = 36)
+    @Column(name = "text", columnDefinition = "TEXT")
+    private String text;
+    @Column(name = "media_identifier")
     private UUID mediaIdentifier;
-    @Column(name = "user_identifier", length = 36)
-    private UUID userIdentifier;
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    public Rating() {
+    public Comment() {
     }
 
-    public Rating(Double rate, UUID mediaIdentifier, UUID userIdentifier) {
-        this.rate = rate;
+    public Comment(String text, UUID mediaIdentifier) {
+        this.text = text;
         this.mediaIdentifier = mediaIdentifier;
-        this.userIdentifier = userIdentifier;
     }
 
     public UUID getIdentifier() {
@@ -49,12 +40,12 @@ public class Rating {
         this.identifier = identifier;
     }
 
-    public Double getRate() {
-        return rate;
+    public String getText() {
+        return text;
     }
 
-    public void setRate(Double rate) {
-        this.rate = rate;
+    public void setText(String text) {
+        this.text = text;
     }
 
     public UUID getMediaIdentifier() {
@@ -63,14 +54,6 @@ public class Rating {
 
     public void setMediaIdentifier(UUID mediaIdentifier) {
         this.mediaIdentifier = mediaIdentifier;
-    }
-
-    public UUID getUserIdentifier() {
-        return userIdentifier;
-    }
-
-    public void setUserIdentifier(UUID userIdentifier) {
-        this.userIdentifier = userIdentifier;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -93,8 +76,8 @@ public class Rating {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Rating rating = (Rating) o;
-        return Objects.equals(identifier, rating.identifier);
+        Comment comment = (Comment) o;
+        return Objects.equals(identifier, comment.identifier);
     }
 
     @Override
@@ -104,11 +87,10 @@ public class Rating {
 
     @Override
     public String toString() {
-        return "Rating{" +
+        return "Comment{" +
                 "identifier=" + identifier +
-                ", rate=" + rate +
+                ", text='" + text + '\'' +
                 ", mediaIdentifier=" + mediaIdentifier +
-                ", userIdentifier=" + userIdentifier +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 '}';
