@@ -19,7 +19,7 @@ public class CommentRegisterServiceImpl implements CommentRegisterService {
     }
 
     @Override
-    public Comment register(CommentRequest request) {
+    public Comment comment(CommentRequest request) {
         MovieResponse movieExists = moviesClient.findByIdentifier(request.mediaIdentifier()).getBody();
 
         return null;

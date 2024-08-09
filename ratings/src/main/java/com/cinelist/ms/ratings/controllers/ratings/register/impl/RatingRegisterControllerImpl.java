@@ -6,8 +6,6 @@ import com.cinelist.ms.ratings.services.ratings.register.RatingRegisterService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
-
 @RestController
 @RequestMapping("/rating")
 public class RatingRegisterControllerImpl implements RatingRegisterController {
@@ -17,7 +15,7 @@ public class RatingRegisterControllerImpl implements RatingRegisterController {
         this.ratingRegisterService = ratingRegisterService;
     }
 
-    @PostMapping("/movie")
+    @PostMapping("/rate")
     public ResponseEntity<Void> rate(@RequestBody RateRequest request) {
         ratingRegisterService.rate(request);
 

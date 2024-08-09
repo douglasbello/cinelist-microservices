@@ -4,5 +4,5 @@ import com.cinelist.ms.ratings.database.models.Comment;
 import com.cinelist.ms.ratings.dtos.comments.CommentRequest;
 
 public interface CommentRegisterService {
-    Comment register(CommentRequest request);
+    Comment comment(CommentRequest request);
 }

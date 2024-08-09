@@ -30,6 +30,6 @@ public class RatingRegisterServiceImpl implements RatingRegisterService {
         UserResponse userExists = usersClient.findByIdentifier(request.userIdentifier()).getBody();
 
         Rating rate = new Rating(request.value(), movieExists.identifier(), userExists.identifier());
-        rate = ratingRepository.save(rate);
+        ratingRepository.save(rate);
     }
 }
