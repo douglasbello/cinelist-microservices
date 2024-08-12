@@ -10,7 +10,6 @@ public record RateRequest(@NotNull(message = "Rate value cannot be null.")
                           @Min(value = 0, message = "Rate value cannot be negative.")
                           @Max(value = 10, message = "Rate value cannot be bigger than 10.")
                           Double value,
-                          UUID mediaIdentifier,
-                          UUID userIdentifier
+                          UUID mediaIdentifier
 ) {
 }

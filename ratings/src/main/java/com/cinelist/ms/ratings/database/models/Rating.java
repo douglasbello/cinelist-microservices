@@ -35,6 +35,11 @@ public class Rating {
     public Rating() {
     }
 
+    public Rating(Double rate, UUID mediaIdentifier) {
+        this.rate = rate;
+        this.mediaIdentifier = mediaIdentifier;
+    }
+
     public Rating(Double rate, UUID mediaIdentifier, UUID userIdentifier) {
         this.rate = rate;
         this.mediaIdentifier = mediaIdentifier;
