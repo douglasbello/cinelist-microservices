@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    password: ujb88kw!
+    url: jdbc:postgresql://localhost:5432/cinelist-ms-accounts
+    username: postgres
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true

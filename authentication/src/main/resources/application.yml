@@ -1,0 +1,11 @@
+security:
+    jwtKey: '1DDPy6cHOhkWa5TgbhGqSvTx2Raj5zEmBREqJfRQXjLCsSQ4xqDe4QbWIbuOygA'
+spring:
+    application:
+        name: accounts
+    jpa:
+        open-in-view: true
+    main:
+        lazy-initialization: true
+    profiles:
+        active: dev
