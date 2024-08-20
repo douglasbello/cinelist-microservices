@@ -57,7 +57,7 @@ ver catálogos específicos (em alta e lançamentos) e receber recomendações p
 <p>
     <b>Discovery</b>
     <ul>
-        <li>Implementação de um <b>Service Discovery Server</b> utilizando <b>Netlflix Eureka</b>.</li>
+        <li>Implementação de um <b>Service Discovery Server</b> utilizando <b>Netflix Eureka</b>.</li>
     </ul>
 </p>
 
