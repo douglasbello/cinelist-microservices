@@ -14,5 +14,4 @@ import java.util.UUID;
 public interface MoviesClient {
     @RequestMapping(method = RequestMethod.GET, value = "/movies/{identifier}")
     ResponseEntity<MovieResponse> findByIdentifier(@PathVariable UUID identifier);
-
 }
