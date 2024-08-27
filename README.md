@@ -35,7 +35,7 @@ ver catálogos específicos (em alta e lançamentos) e receber recomendações p
         <ul>
             <li>Cadastro e gerenciamento de funcionários (atores, diretores, produtores, etc).</li>
             <li>Vínculo de funcionário com filme ou série. </li>
-            <li>Cada serviço tem seu próprio banco, então é utilizado comunicação síncrona (Feign) para verificar se uma mídia existe antes de criar o vínculo.</li>
+            <li>Cada serviço tem seu próprio banco, então é utilizado comunicação síncrona <b>(Feign)</b> para verificar se uma mídia existe antes de criar o vínculo.</li>
         </ul>
 </p>
 
