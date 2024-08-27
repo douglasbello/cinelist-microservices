@@ -98,6 +98,7 @@ ver catálogos específicos (em alta e lançamentos) e receber recomendações p
 
 <ul>
     <li>Java 17</li>
+    <li>Kotlin</li>
     <li>Spring Boot (JPA, Security, Web)</li>
     <li>Spring Cloud Netflix (Config Server, Discovery, Gateway)</li>
     <li>Spring Cloud Open Feign</li>
