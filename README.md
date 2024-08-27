@@ -8,7 +8,7 @@ ver catálogos específicos (em alta e lançamentos) e receber recomendações p
 <hr>
 <h3>Serviços</h3>
 <p>
-    <b>Accounts</b>
+    <b>Accounts (Kotlin)</b>
         <ul>
             <li>Cadastro e edição de usuários.</li>
             <li>Implementação de lista de favoritos e lista de conteúdo para assistir.</li>
